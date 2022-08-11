@@ -11,7 +11,7 @@ export default function PostButton({ text, isLoading, createPost }) {
 
 const alignRight = {
   display: 'flex',
-  "justify-content":'end',
+  justifyContent:'end',
 };
 
 const Button = styled.button`
@@ -23,4 +23,7 @@ const Button = styled.button`
   color: white;
   background-color: #1877F2;
   border-radius: 5px;
+  :disabled{
+    opacity: 0.7;
+  }
 `;

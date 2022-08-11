@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-export default function PostMessage({setValue, text}) {
+export default function PostMessage({setValue, text, value, isLoading}) {
   return (
-    <Textarea placeholder={text} onChange={e => setValue(e.target.value)}/>
+    <Textarea disabled={isLoading} placeholder={text} value={value} onChange={e => setValue(e.target.value)}/>
   );
 }
 
@@ -17,5 +17,8 @@ const Textarea = styled.textarea`
   ::placeholder{
     color: #949494;
     font-family: 'Lato', sans-serif;
+  }
+  :disabled{
+    opacity: 0.7;
   }
 `;
