@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-export default function SignUpButton({text, createUser}){
+export default function SignUpButton({disable, text, createUser}){
     return (
-        <Button onClick={() => createUser()}>{text}</Button>
+        <Button disabled={disable} onClick={() => createUser()}>{text}</Button>
     );
 }
 
@@ -16,4 +16,16 @@ const Button = styled.button`
   font-size: 23px;
   border-radius: 6px;
   margin-top: 1px;
+  cursor: pointer;
+  transition: background .25s ease-in-out;
+
+  :hover {
+    background-color: #2F86EF;
+  }
+
+  :disabled{
+    background-color: #71a9ed;
+    opacity: 4;
+    cursor: default;
+    }
 `;

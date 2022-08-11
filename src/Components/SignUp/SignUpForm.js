@@ -11,13 +11,17 @@ export default function SignUpForm() {
   const [password, setPassword] = useState("");
   const [username, setUserName] = useState("");
   const [pictureUrl, setPictureUrl] = useState("");
+  const [disable, setDisable] = useState(false);
 
   function createUser() {
+    setDisable(true);
     create(email, password, username, pictureUrl)
-      .then(() => navigate("/"))
+    .then(() => {
+        navigate("/");
+      })
       .catch((err) => {
-        console.log(err);
-        alert(`${err.data}`);
+          alert(`${err.data}`);
+          setDisable(false);
       });
   }
 
@@ -40,7 +44,11 @@ export default function SignUpForm() {
           value={pictureUrl}
           setValue={setPictureUrl}
         />
-        <SignUpButton text={"Sign Up"} createUser={createUser} />
+        <SignUpButton
+          text={"Sign Up"}
+          createUser={createUser}
+          disable={disable}
+        />
       </Forms>
       <Link to="/">
         <p>Switch back to log in</p>
