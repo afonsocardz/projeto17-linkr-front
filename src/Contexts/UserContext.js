@@ -5,7 +5,7 @@ const UserContext = createContext();
 export const useUserContext = () => useContext(UserContext);
 
 export default function UserContextProvider({ children }) {
-  const [user, setUser] = useState(false);
+  const [user, setUser] = useState({});
   return (
     <UserContext.Provider value={{ user, setUser }}>
       {children}

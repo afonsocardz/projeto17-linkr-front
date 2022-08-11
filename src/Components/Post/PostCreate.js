@@ -1,19 +1,40 @@
-import styled from "styled-components";
-import { useState } from "react";
-import UserPicture from "../User/UserPicture";
-import PostLink from "./PostLink";
-import PostMessage from "./PostMessage";
-import PostButton from "./PostButton";
-import { useUserContext } from "../../Contexts/UserContext";
-import { create } from "../../Services/api/posts";
+import styled from 'styled-components';
+import { useState } from 'react';
+import UserPicture from '../User/UserPicture';
+import PostLink from './PostLink';
+import PostMessage from './PostMessage';
+import PostButton from './PostButton';
+import { useUserContext } from '../../Contexts/UserContext';
+import { create } from '../../Services/api/posts';
 
-export default function PostCreate() {
-  const [url, setUrl] = useState("");
-  const [message, setMessage] = useState("");
+export default function PostCreate({posts, setPosts}) {
+  const [url, setUrl] = useState('');
+  const [message, setMessage] = useState('');
+  const [errors, setErrors] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { user } = useUserContext();
 
-  function createPost() {
-    create(url, message, user.token);
+  user.userPicture = 'https://facebook.com';
+
+  async function createPost() {
+    setIsLoading(true);
+    try {
+      const response = await create(url, message, user.token);
+      if(response.status === 201){
+        setUrl('');
+        setMessage('');
+        setIsLoading(false);
+        setPosts([...posts]);
+      }
+    } catch (err) {
+      if (err.status === 422) {
+        setErrors(err.data);
+      }
+      if (err.status === 500){
+        alert('Houve um erro ao publica seu link!');
+      }
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -23,12 +44,9 @@ export default function PostCreate() {
       </PictureContainer>
       <InputContainer>
         <Title>O que você quer compartilhar hoje?</Title>
-        <PostLink text={"http://..."} setValue={setUrl} />
-        <PostMessage
-          text={"Awesome article about #javascript"}
-          setValue={setMessage}
-        />
-        <PostButton text={"Publish"} createPost={createPost} />
+        <PostLink text={'http://...'} name={'url'} errors={errors} setErrors={setErrors} value={url} setValue={setUrl} isLoading={isLoading}/>
+        <PostMessage text={'Awesome article about #javascript'} value={message} setValue={setMessage} isLoading={isLoading} />
+        <PostButton text={ isLoading ? 'Publishing...' : 'Publish'} createPost={createPost} isLoading={isLoading}/>
       </InputContainer>
     </PostContainer>
   );

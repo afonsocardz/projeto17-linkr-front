@@ -1,8 +1,21 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
 
-export default function PostLink({setValue, text}) {
+export default function PostLink({ setValue, value, text, name, errors = false, isLoading }) {
+  const error = errors && errors.find(err => err.includes(name));
+
+  useEffect(() =>{
+    if(error){
+      setValue('');
+    }
+  },[error, setValue])
+
+  function onChange(value) {
+    setValue(value);
+  }
+
   return (
-    <InputLink placeholder={text} onChange={e => setValue(e.target.value)} />
+    <InputLink disabled={isLoading} error={error} placeholder={error ? error : text} name={name} value={value} onChange={e => onChange(e.target.value)} />
   );
 }
 
@@ -16,7 +29,10 @@ const InputLink = styled.input`
   font-size: 15px;
   margin-bottom:5px ;
   ::placeholder{
-    color: #949494;
+    color: ${({ error }) => error ? 'red' : '#949494'};
     font-family: 'Lato', sans-serif;
+  }
+  :disabled{
+    opacity: 0.7;
   }
 `;
