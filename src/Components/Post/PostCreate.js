@@ -1,18 +1,18 @@
-import styled from 'styled-components';
-import {useState} from 'react';
-import UserPicture from '../User/UserPicture';
-import PostLink from './PostLink';
-import PostMessage from './PostMessage';
-import PostButton from './PostButton';
-import { useUserContext } from '../../Contexts/UserContext';
-import { create } from '../../Services/api/posts';
+import styled from "styled-components";
+import { useState } from "react";
+import UserPicture from "../User/UserPicture";
+import PostLink from "./PostLink";
+import PostMessage from "./PostMessage";
+import PostButton from "./PostButton";
+import { useUserContext } from "../../Contexts/UserContext";
+import { create } from "../../Services/api/posts";
 
 export default function PostCreate() {
-  const [url, setUrl] = useState('');
-  const [message, setMessage] = useState('');
+  const [url, setUrl] = useState("");
+  const [message, setMessage] = useState("");
   const { user } = useUserContext();
 
-  function createPost(){
+  function createPost() {
     create(url, message, user.token);
   }
 
@@ -23,9 +23,12 @@ export default function PostCreate() {
       </PictureContainer>
       <InputContainer>
         <Title>O que você quer compartilhar hoje?</Title>
-        <PostLink text={'http://...'} setValue={setUrl}/>
-        <PostMessage text={'Awesome article about #javascript'} setValue={setMessage}/>
-        <PostButton text={'Publish'} createPost={createPost} />
+        <PostLink text={"http://..."} setValue={setUrl} />
+        <PostMessage
+          text={"Awesome article about #javascript"}
+          setValue={setMessage}
+        />
+        <PostButton text={"Publish"} createPost={createPost} />
       </InputContainer>
     </PostContainer>
   );
