@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-export default function SignUpInput({setValue, text}) {
+export default function SignUpInput({setValue, text, inputs}) {
     return (
-      <Input placeholder={text} onChange={e => setValue(e.target.value)} />
+      <Input placeholder={text} value={inputs} onChange={e => setValue(e.target.value)} />
     );
 }
 

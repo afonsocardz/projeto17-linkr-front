@@ -5,6 +5,6 @@ export function create(email, password, username, pictureUrl) {
     email,
     password,
     username,
-    pictureUrl,
+    pictureUrl
   });
 }
