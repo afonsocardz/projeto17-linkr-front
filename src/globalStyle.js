@@ -19,6 +19,7 @@ const GlobalStyle = createGlobalStyle`
     justify-content: center;
   } */
 
+
   input, button, textarea {
     border: none;
   }
