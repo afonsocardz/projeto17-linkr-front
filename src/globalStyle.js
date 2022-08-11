@@ -11,12 +11,13 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
     background-color: #333333;
     font-family: 'Lato', sans-serif;
+    margin: 0;
   }
 
-  .root {
+  /* .root {
     display: flex;
     justify-content: center;
-  }
+  } */
 
   input, button, textarea {
     border: none;
