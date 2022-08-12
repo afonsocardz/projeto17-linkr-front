@@ -24,7 +24,7 @@ export default function Timeline() {
     <div style={{ display: 'flex' }}>
       <FeedContainer>
         <PostCreate setUpdate={setUpdate} update={update} />
-        {posts && posts.map(post => <Post post={post} />)}
+        {posts && posts.map((post, index) => <Post key={index} post={post} />)}
       </FeedContainer>
       <div>
         <Trending />
