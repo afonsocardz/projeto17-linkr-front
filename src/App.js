@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import UserContextProvider from "./Contexts/UserContext";
 import GlobalStyle from "./globalStyle";
-import Posts from "./Pages/Posts";
 import SignUp from "./Pages/SignUp";
+import Timeline from "./Pages/Timeline";
 
 export default function App() {
   return (
@@ -11,7 +11,7 @@ export default function App() {
       <UserContextProvider>
         <Routes>
           <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/feed" element={<Posts />} />
+          <Route path="/timeline" element={<Timeline />} />
         </Routes>
       </UserContextProvider>
     </BrowserRouter>

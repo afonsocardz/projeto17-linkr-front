@@ -6,3 +6,7 @@ export function create (url, message, token){
     message
   }, token)
 }
+
+export function getPosts(){
+  return api.get("/posts");
+}
