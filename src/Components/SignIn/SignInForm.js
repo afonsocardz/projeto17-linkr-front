@@ -69,7 +69,13 @@ const SignUpContainer = styled.div`
     color: #ffffff;
     font-weight: 400;
     font-size: 20px;
-    text-decoration: none;
+    text-decoration: underline;
+  }
+
+  @media (max-width: 600px) {
+    height: 100%;
+    width: 100%;
+    margin-top: 40px;
   }
 `;
 

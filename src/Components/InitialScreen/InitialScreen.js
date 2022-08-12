@@ -16,6 +16,15 @@ const LinkrContainer = styled.div`
   height: 100vh;
   background-color: #151515;
   box-shadow: 4px 0px 4px rgba(0, 0, 0, 0.25);
+
+  @media (max-width: 600px) {
+    width: 100vw;
+    height: 35%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 20px;
+  }
 `;
 
 const LinkrTittle = styled.div`
@@ -37,5 +46,20 @@ const LinkrTittle = styled.div`
     font-size: 43px;
     line-height: 63.73px;
     word-wrap: break-word;
+  }
+
+  @media (max-width: 600px) {
+    width: 65%;
+    padding-top: 10px;
+    margin-left: 0;
+    h1 {
+      font-size: 76px;
+      line-height: 83px;
+      text-align: center;
+    }
+    h3 {
+      font-size: 23px;
+      line-height: 34px;
+    }
   }
 `;

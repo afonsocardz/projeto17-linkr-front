@@ -20,4 +20,8 @@ const SignUpContainer = styled.div`
   a {
     text-decoration: none;
   }
+  @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;

@@ -27,4 +27,8 @@ const Input = styled.input`
     font-weight: 700;
     font-size: 27px;
   }
+
+  @media (max-width: 600px) {
+    height: 55px;
+  }
 `;
