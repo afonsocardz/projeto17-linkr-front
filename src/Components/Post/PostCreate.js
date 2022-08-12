@@ -7,7 +7,7 @@ import PostButton from './PostButton';
 import { useUserContext } from '../../Contexts/UserContext';
 import { create } from '../../Services/api/posts';
 
-export default function PostCreate({posts, setPosts}) {
+export default function PostCreate({setUpdate, update}) {
   const [url, setUrl] = useState('');
   const [message, setMessage] = useState('');
   const [errors, setErrors] = useState(false);
@@ -24,7 +24,7 @@ export default function PostCreate({posts, setPosts}) {
         setUrl('');
         setMessage('');
         setIsLoading(false);
-        setPosts([...posts]);
+        setUpdate(!update);
       }
     } catch (err) {
       if (err.status === 422) {
