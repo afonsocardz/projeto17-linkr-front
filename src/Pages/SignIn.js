@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import InitialScreen from "../Components/InitialScreen/InitialScreen";
-import SignUpForm from "../Components/SignUp/SignUpForm";
+import SignInForm from "../Components/SignIn/SignInForm";
 
-export default function SignUp() {
+export default function SignIn() {
   return (
     <SignUpContainer>
       <InitialScreen />
-      <SignUpForm />
+      <SignInForm />
     </SignUpContainer>
   );
 }
