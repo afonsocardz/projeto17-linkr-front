@@ -14,14 +14,14 @@ export default function Timeline() {
       try {
         setPosts(await getPosts());
       } catch (err) {
-
+        
       }
     }
     fetchData();
   }, [update]);
 
   return (
-    <div style={{ display: 'flex' }}>
+    <div style={{ display: "flex" }}>
       <FeedContainer>
         <PostCreate setUpdate={setUpdate} update={update} />
         {posts && posts.map((post, index) => <Post key={index} post={post} />)}
