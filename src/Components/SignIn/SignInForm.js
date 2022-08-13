@@ -17,7 +17,6 @@ export default function SignInForm() {
     setDisable(true);
     login(email, password)
       .then((res) => {
-        console.log(res);
         const { token, user: dbUser } = res;
         user.username = dbUser.username;
         user.userPicture = dbUser.userPicture;
@@ -27,7 +26,11 @@ export default function SignInForm() {
         navigate("/timeline", { replace: true });
       })
       .catch((err) => {
-        alert(`${err}`);
+        if (!email || !password) {
+          alert("E-mail and/or password empty not allowed!");
+        } else {
+          alert(err.data);
+        }
         setDisable(false);
       });
   }
