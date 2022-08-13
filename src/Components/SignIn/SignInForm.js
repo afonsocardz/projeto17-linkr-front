@@ -1,26 +1,36 @@
 import styled from "styled-components";
-import SignUpInput from "./SignUpImput";
-import SignUpButton from "./SignUpButton";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { create } from "../../Services/api/signup";
+import { login } from "../../Services/api/signin";
+import SignUpButton from "../SignUp/SignUpButton";
+import SignUpInput from "../SignUp/SignUpImput";
+import { useUserContext } from "../../Contexts/UserContext";
 
-export default function SignUpForm() {
+export default function SignInForm() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [username, setUserName] = useState("");
-  const [pictureUrl, setPictureUrl] = useState("");
   const [disable, setDisable] = useState(false);
+  const { user } = useUserContext();
 
-  function createUser() {
+  function signIn() {
     setDisable(true);
-    create(email, password, username, pictureUrl)
-      .then(() => {
-        navigate("/");
+    login(email, password)
+      .then((res) => {
+        const { token, user: dbUser } = res;
+        user.username = dbUser.username;
+        user.userPicture = dbUser.userPicture;
+        user.id = dbUser.id;
+        user.token = token;
+
+        navigate("/timeline", { replace: true });
       })
       .catch((err) => {
-        alert(`${err.data}`);
+        if (!email || !password) {
+          alert("E-mail and/or password empty not allowed!");
+        } else {
+          alert(err.data);
+        }
         setDisable(false);
       });
   }
@@ -40,24 +50,10 @@ export default function SignUpForm() {
           value={password}
           setValue={setPassword}
         />
-        <SignUpInput
-          text={"username"}
-          value={username}
-          setValue={setUserName}
-        />
-        <SignUpInput
-          text={"picture url"}
-          value={pictureUrl}
-          setValue={setPictureUrl}
-        />
-        <SignUpButton
-          text={"Sign Up"}
-          createUser={createUser}
-          disable={disable}
-        />
+        <SignUpButton text={"Log In"} createUser={signIn} disable={disable} />
       </Forms>
-      <Link to="/">
-        <p>Switch back to log in</p>
+      <Link to="/sign-up">
+        <p>First time? Create an account!</p>
       </Link>
     </SignUpContainer>
   );
@@ -78,11 +74,11 @@ const SignUpContainer = styled.div`
     font-size: 20px;
     text-decoration: underline;
   }
+
   @media (max-width: 600px) {
-    width: 100%;
     height: 100%;
+    width: 100%;
     margin-top: 40px;
-    margin-bottom: 90px;
   }
 `;
 

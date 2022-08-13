@@ -1,8 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import UserContextProvider from "./Contexts/UserContext";
 import GlobalStyle from "./globalStyle";
-import Posts from "./Pages/Posts";
+import SignIn from "./Pages/SignIn";
 import SignUp from "./Pages/SignUp";
+import Timeline from "./Pages/Timeline";
 
 export default function App() {
   return (
@@ -11,9 +12,10 @@ export default function App() {
       <UserContextProvider>
         <Routes>
           <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/feed" element={<Posts />} />
-        </Routes>
-      </UserContextProvider>
-    </BrowserRouter>
+          <Route path="/timeline" element={<Timeline />} />
+          <Route path="/" element={<SignIn />} />
+        </Routes >
+      </UserContextProvider >
+    </BrowserRouter >
   );
 }
