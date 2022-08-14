@@ -4,40 +4,64 @@ import { DebounceInput } from "react-debounce-input";
 import styled from "styled-components";
 import { useUserContext } from "../../Contexts/UserContext";
 import { searchUser } from "../../Services/api/search";
+import { Link } from "react-router-dom";
 
 export default function SearchInput() {
   const [usersArray, setUsersArray] = useState([]);
   const [username, setUsername] = useState("");
   const { user } = useUserContext();
+  const [isSearching, setIsSearching] = useState(false);
 
   useEffect(() => {
     console.log(user.token);
     async function fetchData(username, token) {
       try {
         const response = await searchUser(username, token);
-        console.log(response);
+        setUsersArray(response);
+        setIsSearching(true);
       } catch (err) {
-        console.log(err);
+        setUsersArray([]);
+        setIsSearching(false);
       }
     }
     fetchData(username, user.token);
-    console.log(usersArray);
   }, [username]);
 
+  function renderUsers() {
+    if (usersArray.length > 0) {
+      const renderedUsers = usersArray.map((user) => {
+        return (
+          <UserDiv>
+            <img src={user.userPicture} alt="Imagem do usuário" />
+            <Link to={`/user/:${user.id}`}>
+              <h3>{user.username}</h3>
+            </Link>
+          </UserDiv>
+        );
+      });
+      return renderedUsers;
+    }
+
+    return null;
+  }
+
   return (
-    <OuterDiv>
-      <DebounceInput
-        minLength={3}
-        debounceTimeout={300}
-        type="text"
-        placeholder="Search for people"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <Button>
-        <AiOutlineSearch />
-      </Button>
-    </OuterDiv>
+    <>
+      <OuterDiv isSearching={isSearching}>
+        <DebounceInput
+          minLength={3}
+          debounceTimeout={300}
+          type="text"
+          placeholder="Search for people"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <Button isSearching={isSearching}>
+          <AiOutlineSearch />
+        </Button>
+      </OuterDiv>
+      <UsersDiv>{renderUsers()}</UsersDiv>
+    </>
   );
 }
 
@@ -45,12 +69,13 @@ const OuterDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 40%;
   input {
-    width: 50%;
+    width: calc(100% - 45px);
     height: 45px;
     border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
+    border-bottom-left-radius: ${(props) =>
+      props.isSearching ? "0px" : "8px"};
     background-color: #ffffff;
     color: #c6c6c6;
     font-weight: 400;
@@ -75,5 +100,31 @@ const Button = styled.div`
   width: 45px;
   height: 45px;
   border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
+  border-bottom-right-radius: ${(props) => (props.isSearching ? "0px" : "8px")};
+`;
+
+const UserDiv = styled.div`
+  width: 100%;
+  height: 65px;
+  display: flex;
+  background-color: #e7e7e7;
+  align-items: center;
+  img {
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    margin: 14px;
+    object-fit: cover;
+  }
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+`;
+
+const UsersDiv = styled.div`
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
