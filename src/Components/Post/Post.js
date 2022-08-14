@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import UserPicture from "../User/UserPicture";
@@ -5,7 +6,7 @@ import PostLike from "./PostLike";
 import PostMetadata from "./PostMetadata";
 
 export default function Post({ post }) {
-  const { message, userPicture, username } = post;
+  const { message, userPicture, username, id } = post;
   return (
     <PostContainer>
       <PictureContainer>
@@ -13,7 +14,9 @@ export default function Post({ post }) {
         <PostLike post={post} />
       </PictureContainer>
       <ContentContainer>
-        <Username>{username}</Username>
+        <Username>
+          <Link to={`/user/${id}`}> {username}</Link>
+        </Username>
         <Message>{message}</Message>
         <PostMetadata post={post} />
       </ContentContainer>
@@ -31,6 +34,10 @@ const Username = styled.h3`
   margin-bottom: 7px;
   font-size: 19px;
   color: white;
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
 `;
 
 const PostContainer = styled.div`
