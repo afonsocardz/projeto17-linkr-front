@@ -1,7 +1,8 @@
 import styled from "styled-components";
+
 import UserPicture from "../User/UserPicture";
+import PostLike from "./PostLike";
 import PostMetadata from "./PostMetadata";
-import Header from "../../components/Header/Header";
 
 export default function Post({ post }) {
   const { message, userPicture, username } = post;
@@ -9,6 +10,7 @@ export default function Post({ post }) {
     <PostContainer>
       <PictureContainer>
         <UserPicture imageUrl={userPicture} />
+        <PostLike post={post} />
       </PictureContainer>
       <ContentContainer>
         <Username>{username}</Username>
