@@ -14,8 +14,8 @@ export default function App() {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/timeline" element={<Timeline />} />
           <Route path="/" element={<SignIn />} />
-        </Routes >
-      </UserContextProvider >
-    </BrowserRouter >
+        </Routes>
+      </UserContextProvider>
+    </BrowserRouter>
   );
 }
