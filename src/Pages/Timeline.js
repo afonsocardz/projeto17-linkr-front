@@ -5,6 +5,7 @@ import PostCreate from "../Components/Post/PostCreate";
 import Trending from "../Components/Trending/Trending";
 import Post from "../Components/Post/Post";
 import { getPosts } from "../Services/api/posts";
+import Header from "../Components/Header/Header.js";
 
 export default function Timeline() {
   const [posts, setPosts] = useState(false);
@@ -36,6 +37,7 @@ export default function Timeline() {
   return (
     <div style={{ display: 'flex' }}>
       <FeedContainer>
+        <Header />
         <PostCreate setUpdate={setUpdate} update={update} />
         {listPosts()}
       </FeedContainer>
