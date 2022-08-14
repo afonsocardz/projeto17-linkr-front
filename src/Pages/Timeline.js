@@ -5,7 +5,7 @@ import PostCreate from "../Components/Post/PostCreate";
 import Trending from "../Components/Trending/Trending";
 import Post from "../Components/Post/Post";
 import { getPosts } from "../Services/api/posts";
-import SearchInput from "../Components/Header/SearchInput";
+import Header from "../Components/Header/Header.js";
 
 export default function Timeline() {
   const [posts, setPosts] = useState(false);
@@ -37,22 +37,21 @@ export default function Timeline() {
   }
 
   return (
-    <>
-      <SearchInput />
-      <div style={{ display: "flex" }}>
-        <FeedContainer>
-          <PostCreate setUpdate={setUpdate} update={update} />
-          {listPosts()}
-        </FeedContainer>
-        <div>
-          <Trending />
-        </div>
+    <div style={{ display: "flex" }}>
+      <FeedContainer>
+        <Header />
+        <PostCreate setUpdate={setUpdate} update={update} />
+        {listPosts()}
+      </FeedContainer>
+      <div>
+        <Trending />
       </div>
-    </>
+    </div>
   );
 }
 
 const FeedContainer = styled.div`
+  margin-top: 72px;
   width: 100%;
   height: 100%;
   display: flex;
