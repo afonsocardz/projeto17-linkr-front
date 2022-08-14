@@ -14,13 +14,12 @@ export default function PostCreate({setUpdate, update}) {
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useUserContext();
 
-  user.userPicture = 'https://facebook.com';
-
   async function createPost() {
     setIsLoading(true);
     try {
       const response = await create(url, message, user.token);
-      if(response.status === 201){
+  
+      if(response){
         setUrl('');
         setMessage('');
         setIsLoading(false);

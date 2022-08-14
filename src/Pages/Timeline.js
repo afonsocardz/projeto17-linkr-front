@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import {useUserContext} from '../Contexts/UserContext' 
 import PostCreate from "../Components/Post/PostCreate";
 import Trending from "../Components/Trending/Trending";
 import Post from "../Components/Post/Post";
@@ -8,23 +9,35 @@ import { getPosts } from "../Services/api/posts";
 export default function Timeline() {
   const [posts, setPosts] = useState(false);
   const [update, setUpdate] = useState(false);
+  const {user} = useUserContext();
+  console.log(user);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        setPosts(await getPosts());
+        setPosts(await getPosts(user.id));
       } catch (err) {
-
+        alert("An error occured while trying to fetch the posts, please refresh the page");
       }
     }
     fetchData();
   }, [update]);
 
+  function listPosts(){
+    if(!posts){
+      return <span style={{color: 'white'}}>Loading...</span>
+    }
+    if (posts?.length === 0){
+      return <span style={{color: 'white'}}>There is no post yet.</span>
+    }
+    return posts.map((post, index) => <Post key={index} post={post} />);
+  }
+
   return (
     <div style={{ display: 'flex' }}>
       <FeedContainer>
         <PostCreate setUpdate={setUpdate} update={update} />
-        {posts && posts.map((post, index) => <Post key={index} post={post} />)}
+        {listPosts()}
       </FeedContainer>
       <div>
         <Trending />
@@ -39,5 +52,6 @@ const FeedContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   gap: 25px;
 `
