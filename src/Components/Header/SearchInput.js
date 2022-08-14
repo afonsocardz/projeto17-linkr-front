@@ -17,8 +17,10 @@ export default function SearchInput() {
     async function fetchData(username, token) {
       try {
         const response = await searchUser(username, token);
+        if (response.length > 0) {
+          setIsSearching(true);
+        }
         setUsersArray(response);
-        setIsSearching(true);
       } catch (err) {
         setUsersArray([]);
         setIsSearching(false);
@@ -29,9 +31,9 @@ export default function SearchInput() {
 
   function renderUsers() {
     if (usersArray.length > 0) {
-      const renderedUsers = usersArray.map((user) => {
+      const renderedUsers = usersArray.map((user, index) => {
         return (
-          <UserDiv>
+          <UserDiv key={index}>
             <img src={user.userPicture} alt="Imagem do usuário" />
             <Link to={`/user/:${user.id}`}>
               <h3>{user.username}</h3>
