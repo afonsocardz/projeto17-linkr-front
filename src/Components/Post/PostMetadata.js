@@ -3,7 +3,12 @@ import styled from "styled-components";
 export default function PostMetadata({ post }) {
   const { url, title, description, image } = post;
   return (
-    <a href={url} style={{ textDecoration: 'none' }} target='_blank' rel='noreferrer'>
+    <a
+      href={url}
+      style={{ textDecoration: "none" }}
+      target="_blank"
+      rel="noreferrer"
+    >
       <UrlContainer>
         <TextContainer>
           <div>
@@ -15,7 +20,11 @@ export default function PostMetadata({ post }) {
           </div>
         </TextContainer>
         <ImageContainer>
-          <img style={{ objectFit: 'cover', width: '100%', height: '100%' }} src={image} alt='Link' />
+          <img
+            style={{ objectFit: "cover", width: "100%", height: "100%" }}
+            src={image}
+            alt="Link"
+          />
         </ImageContainer>
       </UrlContainer>
     </a>
@@ -23,24 +32,24 @@ export default function PostMetadata({ post }) {
 }
 
 const Url = styled.h3`
-  color: #CECECE;
+  color: #cecece;
   font-size: 11px;
 `;
 
 const UrlDescription = styled.h2`
-  color: #9B9595;
+  color: #9b9595;
   font-size: 11px;
   margin-top: 5px;
 `;
 
 const UrlTitle = styled.h1`
-  color: #CECECE;
+  color: #cecece;
   font-size: 16px;
   width: 250px;
 `;
 
 const ImageContainer = styled.div`
-  width: 153.44px;
+  width: 30%;
   overflow: hidden;
 `;
 
@@ -49,14 +58,14 @@ const TextContainer = styled.div`
   justify-content: space-between;
   flex-direction: column;
   margin: 23px 27px 23px 19px;
-  width: 302px;
+  width: 60%;
 `;
 
 const UrlContainer = styled.div`
   display: flex;
   justify-content: space-between;
   height: 155px;
-  border: 1px solid #4D4D4D;
+  border: 1px solid #4d4d4d;
   border-radius: 11px;
   overflow: hidden;
 `;
