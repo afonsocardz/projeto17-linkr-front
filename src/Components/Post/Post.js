@@ -42,7 +42,7 @@ const Username = styled.h3`
 
 const PostContainer = styled.div`
   display: flex;
-  width: 611px;
+  width: 42%;
   padding: 13px 18px;
   border-radius: 16px;
   background-color: #171717;
@@ -50,7 +50,7 @@ const PostContainer = styled.div`
 
 const ContentContainer = styled.div`
   display: flex;
-  width: 100%;
+  width: 85%;
   flex-direction: column;
 `;
 

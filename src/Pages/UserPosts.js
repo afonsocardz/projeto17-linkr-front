@@ -4,19 +4,36 @@ import { useUserContext } from "../Contexts/UserContext";
 import PostCreate from "../Components/Post/PostCreate";
 import Trending from "../Components/Trending/Trending";
 import Post from "../Components/Post/Post";
-import { getPosts } from "../Services/api/posts";
+import { getPostsByUserId } from "../Services/api/posts";
 import Header from "../Components/Header/Header.js";
+import { useParams } from "react-router-dom";
+import { searchUserById } from "../Services/api/search";
 
-export default function Timeline() {
+export default function UserPosts() {
   const [posts, setPosts] = useState(false);
-  const [update, setUpdate] = useState(false);
+  const [username, setUsername] = useState(null);
   const { user } = useUserContext();
-  console.log(user);
+  const { id } = useParams();
+  console.log(id);
+
+  useEffect(() => {
+    async function getUser() {
+      try {
+        const pageOwner = await searchUserById(id, user.token);
+        setUsername(pageOwner.username);
+      } catch (err) {
+        alert(
+          "An error occured while trying to fetch the posts, please refresh the page"
+        );
+      }
+    }
+    getUser();
+  });
 
   useEffect(() => {
     async function fetchData() {
       try {
-        setPosts(await getPosts(user.id));
+        setPosts(await getPostsByUserId(user.id, id, user.token));
       } catch (err) {
         alert(
           "An error occured while trying to fetch the posts, please refresh the page"
@@ -24,7 +41,7 @@ export default function Timeline() {
       }
     }
     fetchData();
-  }, [update]);
+  }, [username]);
 
   function listPosts() {
     if (!posts) {
@@ -40,10 +57,9 @@ export default function Timeline() {
     <div style={{ display: "flex" }}>
       <FeedContainer>
         <Header />
-        <TimelineDiv>
-          <h1>Timeline</h1>
-        </TimelineDiv>
-        <PostCreate setUpdate={setUpdate} update={update} />
+        <UsernameDiv>
+          {username ? <h1>{username}'s Posts</h1> : null}
+        </UsernameDiv>
         {listPosts()}
       </FeedContainer>
       <div>
@@ -64,7 +80,7 @@ const FeedContainer = styled.div`
   gap: 25px;
 `;
 
-const TimelineDiv = styled.div`
+const UsernameDiv = styled.div`
   font-family: "Oswald", sans-serif;
   font-weight: 700;
   font-size: 43px;

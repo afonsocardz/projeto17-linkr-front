@@ -35,7 +35,7 @@ export default function SearchInput() {
         return (
           <UserDiv key={index}>
             <img src={user.userPicture} alt="Imagem do usuário" />
-            <Link to={`/user/:${user.id}`}>
+            <Link to={`/user/${user.id}`}>
               <h3>{user.username}</h3>
             </Link>
           </UserDiv>
@@ -80,7 +80,7 @@ const OuterDiv = styled.div`
     border-bottom-left-radius: ${(props) =>
       props.isSearching ? "0px" : "8px"};
     background-color: #ffffff;
-    color: #c6c6c6;
+    color: #515151;
     font-weight: 400;
     font-size: 19px;
 

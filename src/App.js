@@ -6,6 +6,7 @@ import { AuthProvider } from "./hooks/useAuth";
 import SignIn from "./Pages/SignIn";
 import SignUp from "./Pages/SignUp";
 import Timeline from "./Pages/Timeline";
+import UserPosts from "./Pages/UserPosts";
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
               <Route path="/sign-up" element={<SignUp />} />
               <Route path="/timeline" element={<Timeline />} />
               <Route path="/" element={<SignIn />} />
+              <Route path="/user/:id" element={<UserPosts />} />
             </Routes>
           </AuthProvider>
         </UserContextProvider>
