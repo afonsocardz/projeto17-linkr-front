@@ -57,7 +57,7 @@ export default function SearchInput() {
           placeholder="Search for people"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          onBlur={(e) => setUsername("")}
+          onBlur={() => setTimeout(() => setUsername(""), 300)}
         />
         <Button isSearching={isSearching}>
           <AiOutlineSearch />
