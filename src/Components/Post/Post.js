@@ -1,6 +1,7 @@
-import styled from 'styled-components';
-import UserPicture from '../User/UserPicture'
-import PostMetadata from './PostMetadata';
+import styled from "styled-components";
+import UserPicture from "../User/UserPicture";
+import PostMetadata from "./PostMetadata";
+import Header from "../../components/Header/Header";
 
 export default function Post({ post }) {
   const { message, userPicture, username } = post;
@@ -20,7 +21,7 @@ export default function Post({ post }) {
 
 const Message = styled.h2`
   font-size: 17px;
-  color: #B7B7B7;
+  color: #b7b7b7;
   padding-bottom: 18px;
 `;
 

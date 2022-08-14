@@ -1,21 +1,21 @@
-import React, { useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
-import axios from 'axios';
-import Modal from 'react-modal';
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import axios from "axios";
+import Modal from "react-modal";
 
-import profileImg from '../../assets/profile.jpg';
+import profileImg from "../../assets/profile.jpg";
 
-import * as H from './style.js';
+import * as H from "./style.js";
 
-import { MenuContext } from '../../contexts/MenuContext';
+import { MenuContext } from "../../contexts/MenuContext";
 
-import { Navbar } from './Navbar';
-import { NavItem } from './NavItem';
-import { NavItemHidden } from './NavItemHidden';
+import { Navbar } from "./Navbar";
+import { NavItem } from "./NavItem";
+import { NavItemHidden } from "./NavItemHidden";
 
-import { useAuth } from '../../hooks/useAuth.js';
-import { DropdownMenu } from './DropdownMenu';
+import { useAuth } from "../../hooks/useAuth.js";
+import { DropdownMenu } from "./DropdownMenu";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -31,7 +31,6 @@ export default function Header() {
   function closeModal() {
     setModalIsOpen(false);
     handleMenuClick();
-  
   }
 
   function handleMenuClick() {
@@ -43,40 +42,39 @@ export default function Header() {
       headers: {
         Authorization: `Bearer ${user?.token}`,
       },
-    }
+    };
 
-    const API_URL = 'http://localhost:4000'
+    const API_URL = "http://localhost:4000";
 
     const URL = `${API_URL}/session`;
 
     try {
       await axios.delete(URL, config);
-    } catch ({ response }) { 
+    } catch ({ response }) {
     } finally {
       handleMenuClick();
-      logout(); 
+      logout();
     }
   }
 
   function handleClickOnImage() {
-    navigate(`/user/${user.id}`)
+    navigate(`/user/${user.id}`);
   }
 
   return (
     <H.Header>
-      <Modal 
-      isOpen={modalIsOpen}
-      onRequestClose={closeModal}
-      className="_"
-      overlayClassName="_"
-      contentElement={(props, children) => (
-        <H.ModalStyle {...props}>{children}</H.ModalStyle>
-      )}
-      overlayElement={(props, contentElement) => (
-        <H.OverlayStyle {...props}>{contentElement}</H.OverlayStyle>
-      )}
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        className="_"
+        overlayClassName="_"
+        contentElement={(props, children) => (
+          <H.ModalStyle {...props}>{children}</H.ModalStyle>
+        )}
+        overlayElement={(props, contentElement) => (
+          <H.OverlayStyle {...props}>{contentElement}</H.OverlayStyle>
+        )}
       >
-
         <span>Are you sure you want to logout?</span>
 
         <div>
@@ -101,15 +99,15 @@ export default function Header() {
           </NavItemHidden>
         </NavItem>
         <NavItem>
-          <img 
-          onClick={handleClickOnImage}
-          src={
-            user?.profileImage?.length > 0 ? user.profileImage : profileImg 
-          }
-          alt= ""
+          <img
+            onClick={handleClickOnImage}
+            src={
+              user?.profileImage?.length > 0 ? user.profileImage : profileImg
+            }
+            alt=""
           />
         </NavItem>
       </Navbar>
     </H.Header>
-  )
-}; 
+  );
+}

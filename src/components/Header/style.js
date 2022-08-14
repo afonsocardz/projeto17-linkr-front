@@ -1,10 +1,10 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
 export const Header = styled.header`
   height: 72px;
 
   background-color: #171717;
-  color: #FFFFFF;
+  color: #ffffff;
 
   position: fixed;
   top: 0;
@@ -25,7 +25,7 @@ export const Header = styled.header`
   margin: 0;
 
   h1 {
-    font-family: 'Passion One', cursive;
+    font-family: "Passion One", cursive;
     font-size: 49px;
     letter-spacing: 0.05em;
     padding-left: 20px;
@@ -78,7 +78,7 @@ export const Header = styled.header`
       }
     }
   }
-`
+`;
 export const DropdownMenu = styled.div`
   position: absolute;
   top: 72px;
@@ -123,7 +123,7 @@ export const DropdownMenu = styled.div`
       filter: brightness(1.5);
     }
   }
-`
+`;
 
 export const ModalStyle = styled.div`
   width: 41.5vw;
@@ -141,7 +141,7 @@ export const ModalStyle = styled.div`
   line-height: 39px;
   span {
     font-size: 34px;
-    color: #FFFFFF;
+    color: #ffffff;
   }
   div {
     display: flex;
@@ -152,20 +152,20 @@ export const ModalStyle = styled.div`
       width: 9.3vw;
       min-width: 114px;
       height: 37px;
-      background: #1877F2;
+      background: #1877f2;
       border-radius: 5px;
-      font-family: 'Lato', sans-serif;
+      font-family: "Lato", sans-serif;
       font-weight: 700;
       font-size: 18px;
-      color: #FFFFFF;
+      color: #ffffff;
       border: none;
       display: flex;
       justify-content: center;
       align-items: center;
       cursor: pointer;
       &:first-child {
-        background: #FFFFFF;
-        color: #1877F2;
+        background: #ffffff;
+        color: #1877f2;
       }
     }
   }
@@ -187,4 +187,8 @@ export const ModalStyle = styled.div`
       }
     }
   }
-`
+`;
+
+export const OverlayStyle = styled.div`
+  display: none;
+`;

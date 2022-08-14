@@ -4,6 +4,7 @@ import PostCreate from "../Components/Post/PostCreate";
 import Trending from "../Components/Trending/Trending";
 import Post from "../Components/Post/Post";
 import { getPosts } from "../Services/api/posts";
+import SearchInput from "../Components/Header/SearchInput";
 
 export default function Timeline() {
   const [posts, setPosts] = useState(false);
@@ -13,23 +14,25 @@ export default function Timeline() {
     async function fetchData() {
       try {
         setPosts(await getPosts());
-      } catch (err) {
-
-      }
+      } catch (err) {}
     }
     fetchData();
   }, [update]);
 
   return (
-    <div style={{ display: 'flex' }}>
-      <FeedContainer>
-        <PostCreate setUpdate={setUpdate} update={update} />
-        {posts && posts.map((post, index) => <Post key={index} post={post} />)}
-      </FeedContainer>
-      <div>
-        <Trending />
+    <>
+      <SearchInput />
+      <div style={{ display: "flex" }}>
+        <FeedContainer>
+          <PostCreate setUpdate={setUpdate} update={update} />
+          {posts &&
+            posts.map((post, index) => <Post key={index} post={post} />)}
+        </FeedContainer>
+        <div>
+          <Trending />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
@@ -40,4 +43,4 @@ const FeedContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   gap: 25px;
-`
+`;
