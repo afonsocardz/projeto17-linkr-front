@@ -31,7 +31,9 @@ for (const method of methods) {
         method,
         url,
         data: body,
-        headers,
+        headers: {
+          "Authorization": `Bearer ${headers}`
+        },
       });
 
       return complete ? request : request.data;

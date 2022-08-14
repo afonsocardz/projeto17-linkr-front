@@ -7,6 +7,10 @@ export function create (url, message, token){
   }, token)
 }
 
-export function getPosts(){
-  return api.get("/posts");
+export function getPosts(id){
+  return api.get("/posts", null, null, {id});
+}
+
+export function likePost (postId, token){
+  return api.post(`/posts/${postId}`, null, token)
 }

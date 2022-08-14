@@ -1,5 +1,7 @@
 import styled from 'styled-components';
+
 import UserPicture from '../User/UserPicture'
+import PostLike from './PostLike';
 import PostMetadata from './PostMetadata';
 
 export default function Post({ post }) {
@@ -8,6 +10,7 @@ export default function Post({ post }) {
     <PostContainer>
       <PictureContainer>
         <UserPicture imageUrl={userPicture} />
+        <PostLike post={post}/>
       </PictureContainer>
       <ContentContainer>
         <Username>{username}</Username>
