@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { MenuContext } from '../../contexts/MenuContext.js';
+import { MenuContext } from '../../Contexts/MenuContext.js';
 
 export function NavItemHidden(props) {
   const { menuIsOpen } = useContext(MenuContext);

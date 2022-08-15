@@ -24,6 +24,11 @@ export const Header = styled.header`
   padding: 0;
   margin: 0;
 
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
   h1 {
     font-family: "Passion One", cursive;
     font-size: 49px;
@@ -125,6 +130,19 @@ export const DropdownMenu = styled.div`
   }
 `;
 
+export const OverlayStyle = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 11;
+`;
+
 export const ModalStyle = styled.div`
   width: 41.5vw;
   min-width: 597px;
@@ -187,8 +205,4 @@ export const ModalStyle = styled.div`
       }
     }
   }
-`;
-
-export const OverlayStyle = styled.div`
-  display: none;
 `;
