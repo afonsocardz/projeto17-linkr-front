@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export default function PostMessage({setValue, text, value, isLoading}) {
+export default function PostMessage({setValue, text = "Digite uma mensagem", value, isLoading}) {
   return (
     <Textarea disabled={isLoading} placeholder={text} value={value} onChange={e => setValue(e.target.value)}/>
   );
