@@ -43,7 +43,7 @@ export default function Trending() {
                 <Hashtag
                   key={index}
                   onClick={() => {
-                    navigate(`hashtag/${hashtag.hashtag.replace("#", "")}`);
+                    navigate(`/hashtag/${hashtag.hashtag.replace("#", "")}`);
                   }}
                 >
                   {hashtag.hashtag}
@@ -106,4 +106,17 @@ const Hashtag = styled.h5`
 const SpninnerContainer = styled.div`
   display: flex;
   justify-content: center;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+
+  h5 {
+    margin: 0;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 19px;
+  }
 `;
