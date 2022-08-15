@@ -1,11 +1,11 @@
 import { FaPen, FaTrashAlt } from "react-icons/fa";
-import { Link } from "react-router-dom";
 import { useState } from "react";
-import styled from "styled-components";
 import Modal from "react-modal";
-
 import * as H from "../Header/style.js";
 import { useUserContext } from "../../Contexts/UserContext";
+import { Link, useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { ReactTagify } from "react-tagify";
 import UserPicture from "../User/UserPicture";
 import EditableMessage from "./Message/EditableMessage";
 import PostLike from "./PostLike";
@@ -18,7 +18,7 @@ export default function Post({ post }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const { user } = useUserContext();
-  const { message, userPicture, username, id, userId } = post;
+  const { message, userPicture, username, id, userId,hashtag } = post;
 
   Modal.setAppElement(document.querySelector(".root"));
   function openModal() {
@@ -43,10 +43,18 @@ export default function Post({ post }) {
     }
 
   }
+  
+    const navigate = useNavigate();
+
+  function goToHashtagPage(click){
+    const hashtag = click.substring(1);
+    navigate(`/hashtag/${hashtag}`);
+}
 
   function toggleEditing() {
     setIsEditing(!isEditing);
   }
+
   return (
     <PostContainer id={id}>
       <Modal
@@ -73,6 +81,7 @@ export default function Post({ post }) {
         <PostLike post={post} />
       </PictureContainer>
       <ContentContainer>
+
         <PostTopContainer>
           <Username>
             <Link to={`/user/${userId}`}> {username}</Link>
@@ -80,6 +89,7 @@ export default function Post({ post }) {
           {user.id === post.userId && <div><FaPen onClick={() => toggleEditing()} /> <FaTrashAlt onClick={() => openModal()} /></div>}
         </PostTopContainer>
         <EditableMessage message={message} isEditing={isEditing} id={id} toggleEditing={toggleEditing} />
+
         <PostMetadata post={post} />
       </ContentContainer>
     </PostContainer>
@@ -125,3 +135,9 @@ const PictureContainer = styled.div`
   justify-content: start;
   margin-right: 14px;
 `;
+
+const tagStyle={
+  color: "white",
+  fontWeigth: 700,
+  cursor: 'pointer'
+};
