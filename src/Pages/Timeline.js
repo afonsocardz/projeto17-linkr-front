@@ -20,10 +20,9 @@ export default function Timeline() {
       try {
         if (localStorageUser) {
           setUser(localStorageUser);
-          setPosts(await getPosts(localStorageUser.id));
-        } else {
-          setPosts(await getPosts(user.id));
-        }
+          const newPosts = await getPosts(localStorageUser.id)
+          setPosts(newPosts);
+        } 
       } catch (err) {
         alert(
           "An error occured while trying to fetch the posts, please refresh the page"
@@ -33,7 +32,7 @@ export default function Timeline() {
     fetchData();
   }, [update]);
 
-  function showPosts() {
+  function listPosts() {
     if (!posts) {
       return <span style={{ color: "white" }}>Loading...</span>;
     }
@@ -41,9 +40,6 @@ export default function Timeline() {
       return <span style={{ color: "white" }}>There is no post yet.</span>;
     }
     return posts.map((post, index) => <Post key={index} post={post} />);
-  }
-  function listPosts(){
-    return showPosts();
   }
 
   return (
