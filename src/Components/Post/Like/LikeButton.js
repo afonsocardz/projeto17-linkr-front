@@ -1,36 +1,42 @@
 import styled from "styled-components";
-import { FaRegHeart, FaHeart } from 'react-icons/fa';
+import { FaRegHeart, FaHeart } from "react-icons/fa";
 
 export default function LikeButton({ like, likeHandler, likeQty, whoLiked }) {
   const pessoas = [];
-  for (let x = 0; x < whoLiked.length; x++){
+  for (let x = 0; x < whoLiked.length; x++) {
     pessoas.push(whoLiked[x].username);
   }
   const whoLeft = likeQty - whoLiked.length;
   function statusHandler() {
     if (!like) {
-      return <FaRegHeart style={{ fill: 'white' }} />;
+      return <FaRegHeart style={{ fill: "white" }} />;
     }
-    return <FaHeart style={{ fill: 'red' }} />;
+    return <FaHeart style={{ fill: "red" }} />;
   }
   return (
     <ButtonContainer id={like} onClick={() => likeHandler()}>
       {statusHandler()}
       <Triangle></Triangle>
-      <Poppin>{like ? `Você, ${pessoas.join(', ')} ${whoLeft - 1 > 0 ? 'e outras ' + whoLeft + 'pessoas' : ''}`: `${likeQty} pessoas`}</Poppin>
+      <Poppin>
+        {like
+          ? `Você, ${pessoas.join(", ")} ${
+              whoLeft - 1 > 0 ? "e outras " + whoLeft + "pessoas" : ""
+            }`
+          : `${likeQty} pessoas`}
+      </Poppin>
     </ButtonContainer>
   );
 }
 
 const Triangle = styled.div`
-    content: '';
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-bottom: 10px solid black;
-    position: absolute;
-    visibility: hidden;
-    transform: translate(-50%, 0);
-    bottom: -115%;
+  content: "";
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid black;
+  position: absolute;
+  visibility: hidden;
+  transform: translate(-50%, 0);
+  bottom: -115%;
 `;
 
 const Poppin = styled.div`
@@ -57,6 +63,3 @@ const ButtonContainer = styled.div`
     visibility: visible;
   }
 `;
-
-
-

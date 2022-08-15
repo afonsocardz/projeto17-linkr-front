@@ -12,9 +12,9 @@ import { searchUserById } from "../Services/api/search";
 export default function UserPosts() {
   const [posts, setPosts] = useState(false);
   const [username, setUsername] = useState(null);
-  const { user } = useUserContext();
+  const { user, setUser } = useUserContext();
   const { id } = useParams();
-  console.log(id);
+  const localStorageUser = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     async function getUser() {
@@ -33,7 +33,18 @@ export default function UserPosts() {
   useEffect(() => {
     async function fetchData() {
       try {
-        setPosts(await getPostsByUserId(user.id, id, user.token));
+        if (localStorageUser) {
+          setUser(localStorageUser);
+          setPosts(
+            await getPostsByUserId(
+              localStorageUser.id,
+              id,
+              localStorageUser.token
+            )
+          );
+        } else {
+          setPosts(await getPostsByUserId(user.id, id, user.token));
+        }
       } catch (err) {
         alert(
           "An error occured while trying to fetch the posts, please refresh the page"
@@ -89,4 +100,7 @@ const UsernameDiv = styled.div`
   color: #ffffff;
   width: 42%;
   margin-top: 53px;
+  h1 {
+    font-size: 43px;
+  }
 `;

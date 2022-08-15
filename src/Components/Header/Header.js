@@ -17,16 +17,23 @@ import { NavItemHidden } from "./NavItemHidden";
 import { useAuth } from "../../hooks/useAuth.js";
 import { DropdownMenu } from "./DropdownMenu";
 import SearchInput from "./SearchInput";
+import { useUserContext } from "../../Contexts/UserContext";
 
 export default function Header() {
   const navigate = useNavigate();
   const { menuIsOpen, setMenuIsOpen } = useContext(MenuContext);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const { user, logout } = useAuth();
+  const { user } = useUserContext();
 
   Modal.setAppElement(document.querySelector(".root"));
   function openModal() {
     setModalIsOpen(true);
+  }
+
+  function logout() {
+    localStorage.removeItem("user");
+
+    navigate("/", { replace: true });
   }
 
   function closeModal() {
@@ -103,9 +110,7 @@ export default function Header() {
         <NavItem>
           <img
             onClick={handleClickOnImage}
-            src={
-              user?.profileImage?.length > 0 ? user.profileImage : profileImg
-            }
+            src={user?.userPicture?.length > 0 ? user.userPicture : profileImg}
             alt=""
           />
         </NavItem>

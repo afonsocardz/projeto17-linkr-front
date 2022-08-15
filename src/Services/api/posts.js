@@ -16,7 +16,7 @@ export function getPosts(id) {
 }
 
 export function getPostsByUserId(id, searchedUserId, token) {
-  return api.get(`/posts/${searchedUserId}`, null, token, id);
+  return api.get(`/posts/${searchedUserId}`, null, token, { id });
 }
 
 export function likePost(postId, token) {

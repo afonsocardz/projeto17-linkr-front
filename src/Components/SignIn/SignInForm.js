@@ -5,6 +5,7 @@ import { login } from "../../Services/api/signin";
 import SignUpButton from "../SignUp/SignUpButton";
 import SignUpInput from "../SignUp/SignUpImput";
 import { useUserContext } from "../../Contexts/UserContext";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function SignInForm() {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ export default function SignInForm() {
         user.userPicture = dbUser.userPicture;
         user.id = dbUser.id;
         user.token = token;
+        localStorage.setItem("user", JSON.stringify(user));
 
         navigate("/timeline", { replace: true });
       })
