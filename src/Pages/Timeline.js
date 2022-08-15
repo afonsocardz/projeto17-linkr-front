@@ -15,6 +15,7 @@ export default function Timeline() {
   const localStorageUser = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
+    console.log('atualiza');
     async function fetchData() {
       try {
         if (localStorageUser) {
@@ -32,7 +33,7 @@ export default function Timeline() {
     fetchData();
   }, [update]);
 
-  function listPosts() {
+  function showPosts() {
     if (!posts) {
       return <span style={{ color: "white" }}>Loading...</span>;
     }
@@ -40,6 +41,9 @@ export default function Timeline() {
       return <span style={{ color: "white" }}>There is no post yet.</span>;
     }
     return posts.map((post, index) => <Post key={index} post={post} />);
+  }
+  function listPosts(){
+    return showPosts();
   }
 
   return (
@@ -69,23 +73,24 @@ const MainContainer = styled.main`
   overflow-x: hidden;
 `;
 
+
 const TimelineDiv = styled.div`
   max-width: 611px;
   height: 160px;
   display: flex;
   align-items: center;
-
+  display: flex;
+  
   h1 {
     font-size: 43px;
     font-family: "Oswald", sans-serif;
     font-weight: 700;
     color: #ffffff;
   }
-`;
+  `;
 const FeedContainer = styled.div`
   max-width: 611px;
   margin-right: 25px;
   display: flex;
   flex-direction: column;
-`;
-
+  `;
