@@ -8,17 +8,12 @@ const GlobalStyle = createGlobalStyle`
 
 
   body{
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     background-color: #333333;
     font-family: 'Lato', sans-serif;
     margin: 0;
   }
-
-  /* .root {
-    display: flex;
-    justify-content: center;
-  } */
-
 
   input, button, textarea {
     border: none;

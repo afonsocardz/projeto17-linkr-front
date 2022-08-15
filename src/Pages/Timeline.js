@@ -43,50 +43,50 @@ export default function Timeline() {
   }
 
   return (
-    <MainContainer>
+    <>
       <Header />
-      <FeedContainer>
-        <TimelineDiv>
-          <h1>Timeline</h1>
-        </TimelineDiv>
-        <PostCreate setUpdate={setUpdate} update={update} />
-        {listPosts()}
-      </FeedContainer>
-      <div>
-        <Trending />
-      </div>
-    </MainContainer>
+      <MainContainer>
+        <FeedContainer>
+          <TimelineDiv>
+            <h1>Timeline</h1>
+          </TimelineDiv>
+          <PostCreate setUpdate={setUpdate} update={update} />
+          {listPosts()}
+        </FeedContainer>
+          <Trending />
+      </MainContainer>
+    </>
   );
 }
 
-const MainContainer = styled.div`
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-top: 130px;
+const MainContainer = styled.main`
+  width: 100%;
+  height: 100%;
+  margin-top: 72px;
   display: flex;
+  flex-direction: row;
   justify-content: center;
+  overflow-x: hidden;
 `;
 
+
+const TimelineDiv = styled.div`
+  max-width: 611px;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  display: flex;
+  
+  h1 {
+    font-size: 43px;
+    font-family: "Oswald", sans-serif;
+    font-weight: 700;
+    color: #ffffff;
+  }
+  `;
 const FeedContainer = styled.div`
-  width: 611px;
-  height: 100%;
+  max-width: 611px;
   margin-right: 25px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 25px;
-`;
-
-const TimelineDiv = styled.div`
-  font-family: "Oswald", sans-serif;
-  font-weight: 700;
-  font-size: 43px;
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  color: #ffffff;
-  h1 {
-    font-size: 43px;
-  }
-`;
+  `;

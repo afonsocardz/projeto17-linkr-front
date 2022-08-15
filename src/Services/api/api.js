@@ -13,7 +13,7 @@ const queryStringBuilder = (query) =>
     : "";
 
 const instance = axios.create({
-  baseURL: "http://localhost:4000",
+  baseURL: process.env.REACT_APP_HTTP_REQUEST_BASE_URL,
 });
 
 for (const method of methods) {
@@ -26,7 +26,6 @@ for (const method of methods) {
   ) {
     try {
       const url = `${route}${queryStringBuilder(query)}`;
-
       const request = await instance({
         method,
         url,
@@ -35,7 +34,6 @@ for (const method of methods) {
           "Authorization": `Bearer ${headers}`
         },
       });
-
       return complete ? request : request.data;
     } catch (err) {
       console.error(err);

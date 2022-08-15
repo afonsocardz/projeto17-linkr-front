@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useUserContext } from "../Contexts/UserContext";
-import PostCreate from "../Components/Post/PostCreate";
 import Trending from "../Components/Trending/Trending";
 import Post from "../Components/Post/Post";
 import { getPostsByUserId } from "../Services/api/posts";
@@ -65,50 +64,54 @@ export default function UserPosts() {
   }
 
   return (
-    <MainContainer>
-    <Header />
-    <FeedContainer>
-      <UsernameDiv>
-      {username ? <h1>{username}'s Posts</h1> : null}
-      </UsernameDiv>
-      
-      {listPosts()}
-    </FeedContainer>
-    <div>
-      <Trending />
-    </div>
-  </MainContainer>
+    <>
+      <Header />
+      <MainContainer>
+        <Container>
+          <UsernameDiv>
+            {username ? <h1>{username}'s Posts</h1> : null}
+          </UsernameDiv>
+          <FeedContainer>{listPosts()}</FeedContainer>
+        </Container>
+        <Trending />
+      </MainContainer>
+    </>
   );
 }
 
 const MainContainer = styled.div`
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-top: 130px;
-  display: flex;
-  justify-content: center;
-`;
-
-const FeedContainer = styled.div`
-  width: 611px;
+  width: 100%;
   height: 100%;
-  margin-right: 25px;
+  margin-top: 72px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  overflow-x: hidden;
+`;
+const FeedContainer = styled.div`
+  max-width: 611px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 25px;
 `;
 
 const UsernameDiv = styled.div`
-  font-family: "Oswald", sans-serif;
-  font-weight: 700;
-  font-size: 43px;
-  width: 100%;
+  max-width: 611px;
+  height: 160px;
   display: flex;
-  justify-content: flex-start;
-  color: #ffffff;
+  flex-direction: column;
+  justify-content: center;
+
   h1 {
     font-size: 43px;
+    color: #ffffff;
+    font-family: "Oswald", sans-serif;
+    font-weight: 700;
+    font-size: 43px;
   }
+`;
+
+const Container = styled.div`
+  margin-right: 25px;
 `;

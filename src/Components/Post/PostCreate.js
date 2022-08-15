@@ -83,9 +83,10 @@ const PictureContainer = styled.div`
 `;
 
 const PostContainer = styled.div`
-  display: flex;
   width: 100%;
+  display: flex;
   padding: 13px 18px;
+  margin-bottom: 29px;
   border-radius: 16px;
   background-color: white;
 `;
