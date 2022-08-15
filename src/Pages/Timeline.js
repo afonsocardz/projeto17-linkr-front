@@ -53,9 +53,7 @@ export default function Timeline() {
           <PostCreate setUpdate={setUpdate} update={update} />
           {listPosts()}
         </FeedContainer>
-        
           <Trending />
-        
       </MainContainer>
     </>
   );
@@ -70,22 +68,24 @@ const MainContainer = styled.main`
   justify-content: center;
   overflow-x: hidden;
 `;
-const FeedContainer = styled.div`
-  max-width: 611px;
-  display: flex;
-  flex-direction: column;
-`;
 
 const TimelineDiv = styled.div`
   max-width: 611px;
   height: 160px;
   display: flex;
   align-items: center;
-  font-family: "Oswald", sans-serif;
-  font-weight: 700;
-  font-size: 43px;
-  color: #ffffff;
+
   h1 {
     font-size: 43px;
+    font-family: "Oswald", sans-serif;
+    font-weight: 700;
+    color: #ffffff;
   }
 `;
+const FeedContainer = styled.div`
+  max-width: 611px;
+  margin-right: 25px;
+  display: flex;
+  flex-direction: column;
+`;
+

@@ -46,13 +46,13 @@ export default function Hashtag() {
     <>
       <Header />
       <MainContainer>
-        <HashtagName>
-          <h2>#{hashtag}</h2>
-        </HashtagName>
         <Container>
+          <HashtagName>
+            <h2>#{hashtag}</h2>
+          </HashtagName>
           <FeedContainer>{listPosts()}</FeedContainer>
-          <Trending />
         </Container>
+        <Trending />
       </MainContainer>
     </>
   );
@@ -61,17 +61,19 @@ export default function Hashtag() {
 const MainContainer = styled.main`
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   margin-top: 72px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  overflow-x: hidden;
 `;
 
 const HashtagName = styled.div`
+  max-width: 611px;
+  height: 160px;
   display: flex;
-  justify-content: flex-start;
-  width: 42%;
-  margin-top: 53px;
+  flex-direction: column;
+  justify-content: center;
 
   h2 {
     font-size: 43px;
@@ -83,17 +85,13 @@ const HashtagName = styled.div`
 `;
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+    margin-right: 25px;
 `;
 
 const FeedContainer = styled.div`
-  width: 100%;
-  height: 100%;
+  max-width: 611px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 25px;
 `;

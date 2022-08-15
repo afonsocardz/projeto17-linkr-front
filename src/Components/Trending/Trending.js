@@ -59,7 +59,7 @@ export default function Trending() {
 
 const TrendingContainer = styled.aside`
   width: 300px;
-  height: auto;
+  height: 100%;
   background-color: #171717;
   border-radius: 16px;
   padding-left: 16px;

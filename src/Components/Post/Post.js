@@ -41,11 +41,12 @@ const Username = styled.h3`
 `;
 
 const PostContainer = styled.div`
+  width: 100%;
   display: flex;
-  width: 42%;
   padding: 13px 18px;
   border-radius: 16px;
   background-color: #171717;
+  margin-bottom: 29px;
 `;
 
 const ContentContainer = styled.div`

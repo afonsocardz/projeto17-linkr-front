@@ -65,42 +65,54 @@ export default function UserPosts() {
   }
 
   return (
-    <div style={{ display: "flex" }}>
-      <FeedContainer>
-        <Header />
-        <UsernameDiv>
-          {username ? <h1>{username}'s Posts</h1> : null}
-        </UsernameDiv>
-        {listPosts()}
-      </FeedContainer>
-      <div>
+    <>
+      <Header />
+      <MainContainer>
+        <Container>
+          <UsernameDiv>
+            {username ? <h1>{username}'s Posts</h1> : null}
+          </UsernameDiv>
+          <FeedContainer>{listPosts()}</FeedContainer>
+        </Container>
         <Trending />
-      </div>
-    </div>
+      </MainContainer>
+    </>
   );
 }
 
-const FeedContainer = styled.div`
-  margin-top: 72px;
+const MainContainer = styled.div`
   width: 100%;
   height: 100%;
+  margin-top: 72px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  overflow-x: hidden;
+`;
+const FeedContainer = styled.div`
+  max-width: 611px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 25px;
 `;
 
 const UsernameDiv = styled.div`
-  font-family: "Oswald", sans-serif;
-  font-weight: 700;
-  font-size: 43px;
+  max-width: 611px;
+  height: 160px;
   display: flex;
-  justify-content: flex-start;
-  color: #ffffff;
-  width: 42%;
-  margin-top: 53px;
+  flex-direction: column;
+  justify-content: center;
+
   h1 {
     font-size: 43px;
+    color: #ffffff;
+    font-family: "Oswald", sans-serif;
+    font-weight: 700;
+    font-size: 43px;
   }
+`;
+
+const Container = styled.div`
+  margin-right: 25px;
 `;
