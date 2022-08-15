@@ -57,12 +57,13 @@ export default function Trending() {
   );
 }
 
-const TrendingContainer = styled.div`
+const TrendingContainer = styled.aside`
   width: 300px;
   height: auto;
   background-color: #171717;
   border-radius: 16px;
   padding-left: 16px;
+  margin-top: 160px;
 `;
 
 const Tittle = styled.div`

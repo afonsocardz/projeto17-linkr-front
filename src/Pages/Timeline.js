@@ -43,42 +43,48 @@ export default function Timeline() {
   }
 
   return (
-    <div style={{ display: "flex" }}>
-      <FeedContainer>
-        <Header />
-        <TimelineDiv>
-          <h1>Timeline</h1>
-        </TimelineDiv>
-        <PostCreate setUpdate={setUpdate} update={update} />
-        {listPosts()}
-      </FeedContainer>
-      <div>
-        <Trending />
-      </div>
-    </div>
+    <>
+      <Header />
+      <MainContainer>
+        <FeedContainer>
+          <TimelineDiv>
+            <h1>Timeline</h1>
+          </TimelineDiv>
+          <PostCreate setUpdate={setUpdate} update={update} />
+          {listPosts()}
+        </FeedContainer>
+        
+          <Trending />
+        
+      </MainContainer>
+    </>
   );
 }
 
-const FeedContainer = styled.div`
-  margin-top: 72px;
+const MainContainer = styled.main`
   width: 100%;
   height: 100%;
+  margin-top: 72px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  overflow-x: hidden;
+`;
+const FeedContainer = styled.div`
+  max-width: 611px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 25px;
 `;
 
 const TimelineDiv = styled.div`
+  max-width: 611px;
+  height: 160px;
+  display: flex;
+  align-items: center;
   font-family: "Oswald", sans-serif;
   font-weight: 700;
   font-size: 43px;
-  display: flex;
-  justify-content: flex-start;
   color: #ffffff;
-  width: 42%;
-  margin-top: 53px;
   h1 {
     font-size: 43px;
   }

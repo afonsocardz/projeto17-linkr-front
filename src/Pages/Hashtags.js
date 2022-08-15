@@ -15,7 +15,7 @@ export default function Hashtag() {
 
   useEffect(() => {
     specificHashtag();
-  },[]);
+  }, []);
 
   async function specificHashtag() {
     try {
@@ -63,15 +63,14 @@ const MainContainer = styled.main`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   margin-top: 72px;
 `;
 
 const HashtagName = styled.div`
-  width: 42%;
   display: flex;
   justify-content: flex-start;
+  width: 42%;
   margin-top: 53px;
 
   h2 {
@@ -86,8 +85,7 @@ const HashtagName = styled.div`
 const Container = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
+  justify-content: center;
 `;
 
 const FeedContainer = styled.div`
