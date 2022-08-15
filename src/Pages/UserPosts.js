@@ -65,25 +65,34 @@ export default function UserPosts() {
   }
 
   return (
-    <div style={{ display: "flex" }}>
-      <FeedContainer>
-        <Header />
-        <UsernameDiv>
-          {username ? <h1>{username}'s Posts</h1> : null}
-        </UsernameDiv>
-        {listPosts()}
-      </FeedContainer>
-      <div>
-        <Trending />
-      </div>
+    <MainContainer>
+    <Header />
+    <FeedContainer>
+      <UsernameDiv>
+      {username ? <h1>{username}'s Posts</h1> : null}
+      </UsernameDiv>
+      
+      {listPosts()}
+    </FeedContainer>
+    <div>
+      <Trending />
     </div>
+  </MainContainer>
   );
 }
 
+const MainContainer = styled.div`
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 130px;
+  display: flex;
+  justify-content: center;
+`;
+
 const FeedContainer = styled.div`
-  margin-top: 72px;
-  width: 100%;
+  width: 611px;
   height: 100%;
+  margin-right: 25px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -95,11 +104,10 @@ const UsernameDiv = styled.div`
   font-family: "Oswald", sans-serif;
   font-weight: 700;
   font-size: 43px;
+  width: 100%;
   display: flex;
   justify-content: flex-start;
   color: #ffffff;
-  width: 42%;
-  margin-top: 53px;
   h1 {
     font-size: 43px;
   }

@@ -15,6 +15,7 @@ export default function Timeline() {
   const localStorageUser = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
+    console.log('atualiza');
     async function fetchData() {
       try {
         if (localStorageUser) {
@@ -32,7 +33,7 @@ export default function Timeline() {
     fetchData();
   }, [update]);
 
-  function listPosts() {
+  function showPosts() {
     if (!posts) {
       return <span style={{ color: "white" }}>Loading...</span>;
     }
@@ -41,11 +42,14 @@ export default function Timeline() {
     }
     return posts.map((post, index) => <Post key={index} post={post} />);
   }
+  function listPosts(){
+    return showPosts();
+  }
 
   return (
-    <div style={{ display: "flex" }}>
+    <MainContainer>
+      <Header />
       <FeedContainer>
-        <Header />
         <TimelineDiv>
           <h1>Timeline</h1>
         </TimelineDiv>
@@ -55,14 +59,22 @@ export default function Timeline() {
       <div>
         <Trending />
       </div>
-    </div>
+    </MainContainer>
   );
 }
 
+const MainContainer = styled.div`
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 130px;
+  display: flex;
+  justify-content: center;
+`;
+
 const FeedContainer = styled.div`
-  margin-top: 72px;
-  width: 100%;
+  width: 611px;
   height: 100%;
+  margin-right: 25px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -74,11 +86,10 @@ const TimelineDiv = styled.div`
   font-family: "Oswald", sans-serif;
   font-weight: 700;
   font-size: 43px;
+  width: 100%;
   display: flex;
   justify-content: flex-start;
   color: #ffffff;
-  width: 42%;
-  margin-top: 53px;
   h1 {
     font-size: 43px;
   }

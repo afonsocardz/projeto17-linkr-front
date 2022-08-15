@@ -14,7 +14,7 @@ export default function LikeButton({ like, likeHandler, likeQty, whoLiked }) {
     return <FaHeart style={{ fill: "red" }} />;
   }
   return (
-    <ButtonContainer id={like} onClick={() => likeHandler()}>
+    <ButtonContainer onClick={() => likeHandler()}>
       {statusHandler()}
       <Triangle></Triangle>
       <Poppin>

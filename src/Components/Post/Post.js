@@ -1,33 +1,97 @@
+import { FaPen, FaTrashAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import styled from "styled-components";
+import Modal from "react-modal";
 
+import * as H from "../Header/style.js";
+import { useUserContext } from "../../Contexts/UserContext";
 import UserPicture from "../User/UserPicture";
+import EditableMessage from "./Message/EditableMessage";
 import PostLike from "./PostLike";
 import PostMetadata from "./PostMetadata";
+import { delPost } from "../../Services/api/posts";
 
 export default function Post({ post }) {
-  const { message, userPicture, username, id } = post;
+  const [isEditing, setIsEditing] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { user } = useUserContext();
+  const { message, userPicture, username, id, userId } = post;
+
+  Modal.setAppElement(document.querySelector(".root"));
+  function openModal() {
+    setModalIsOpen(true);
+  }
+  function closeModal() {
+    setModalIsOpen(false);
+  }
+
+  async function deletePost() {
+    try {
+      setIsLoading(true);
+      const response = await delPost(id, user.token);
+      closeModal(false);
+      if (response) {
+        setIsLoading(false);
+      }
+    } catch (err) {
+      alert("Something went wrong to delete this post");
+      setIsLoading(false);
+      closeModal();
+    }
+
+  }
+
+  function toggleEditing() {
+    setIsEditing(!isEditing);
+  }
   return (
-    <PostContainer>
+    <PostContainer id={id}>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        className="_"
+        overlayClassName="_"
+        contentElement={(props, children) => (
+          <H.ModalStyle {...props}>{children}</H.ModalStyle>
+        )}
+        overlayElement={(props, contentElement) => (
+          <H.OverlayStyle {...props}>{contentElement}</H.OverlayStyle>
+        )}
+      >
+        <span>{isLoading ? "Loading..." : 'Are you sure you want to delete this post?'}</span>
+
+        <div>
+          <button onClick={closeModal}>No, go back</button>
+          <button onClick={deletePost}>Yes</button>
+        </div>
+      </Modal>
       <PictureContainer>
         <UserPicture imageUrl={userPicture} />
         <PostLike post={post} />
       </PictureContainer>
       <ContentContainer>
-        <Username>
-          <Link to={`/user/${id}`}> {username}</Link>
-        </Username>
-        <Message>{message}</Message>
+        <PostTopContainer>
+          <Username>
+            <Link to={`/user/${userId}`}> {username}</Link>
+          </Username>
+          {user.id === post.userId && <div><FaPen onClick={() => toggleEditing()} /> <FaTrashAlt onClick={() => openModal()} /></div>}
+        </PostTopContainer>
+        <EditableMessage message={message} isEditing={isEditing} id={id} toggleEditing={toggleEditing} />
         <PostMetadata post={post} />
       </ContentContainer>
     </PostContainer>
   );
 }
 
-const Message = styled.h2`
-  font-size: 17px;
-  color: #b7b7b7;
-  padding-bottom: 18px;
+const PostTopContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color:white;
 `;
 
 const Username = styled.h3`
@@ -42,7 +106,7 @@ const Username = styled.h3`
 
 const PostContainer = styled.div`
   display: flex;
-  width: 42%;
+  width: 100%;
   padding: 13px 18px;
   border-radius: 16px;
   background-color: #171717;
@@ -50,7 +114,7 @@ const PostContainer = styled.div`
 
 const ContentContainer = styled.div`
   display: flex;
-  width: 85%;
+  width: 100%;
   flex-direction: column;
 `;
 
