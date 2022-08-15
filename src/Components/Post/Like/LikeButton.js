@@ -3,10 +3,10 @@ import { FaRegHeart, FaHeart } from "react-icons/fa";
 
 export default function LikeButton({ like, likeHandler, likeQty, whoLiked }) {
   const pessoas = [];
-  for (let x = 0; x < whoLiked.length; x++) {
+  for (let x = 0; x < whoLiked?.length; x++) {
     pessoas.push(whoLiked[x].username);
   }
-  const whoLeft = likeQty - whoLiked.length;
+  const whoLeft = likeQty - whoLiked?.length;
   function statusHandler() {
     if (!like) {
       return <FaRegHeart style={{ fill: "white" }} />;
@@ -14,7 +14,7 @@ export default function LikeButton({ like, likeHandler, likeQty, whoLiked }) {
     return <FaHeart style={{ fill: "red" }} />;
   }
   return (
-    <ButtonContainer id={like} onClick={() => likeHandler()}>
+    <ButtonContainer state={like} onClick={() => likeHandler()}>
       {statusHandler()}
       <Triangle></Triangle>
       <Poppin>

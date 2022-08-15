@@ -4,22 +4,31 @@ import styled from "styled-components";
 import Header from "../Components/Header/Header.js";
 import Post from "../Components/Post/Post";
 import Trending from "../Components/Trending/Trending";
+import { useUserContext } from "../Contexts/UserContext.js";
 import { getPostsByHashtag } from "../Services/api/hashtags";
 
 export default function Hashtag() {
-  const [posts, setPosts] = useState(false);
-  const [hashtagName, setHashtagName] = useState(null);
   const { hashtag } = useParams();
+  const [posts, setPosts] = useState(false);
+  const { user, setUser } = useUserContext();
+  const localStorageUser = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     specificHashtag();
-  },[hashtag]);
+  },[]);
 
-  async function specificHashtag () {
+  async function specificHashtag() {
     try {
+      if (localStorageUser) {
+        setUser(localStorageUser);
+        setPosts(await getPostsByHashtag(hashtag, localStorageUser.token));
+      } else {
         setPosts(await getPostsByHashtag(hashtag));
+      }
     } catch (err) {
-        alert(`${err.data}`);
+      alert(
+        "An error occured while trying to fetch the posts, please refresh the page"
+      );
     }
   }
 
@@ -38,7 +47,7 @@ export default function Hashtag() {
       <Header />
       <MainContainer>
         <HashtagName>
-          {hashtagName ? <h2>#{hashtagName}</h2> : <h2>#</h2>}
+          <h2>#{hashtag}</h2>
         </HashtagName>
         <Container>
           <FeedContainer>{listPosts()}</FeedContainer>

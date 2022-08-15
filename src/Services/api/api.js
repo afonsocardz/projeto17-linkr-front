@@ -26,7 +26,6 @@ for (const method of methods) {
   ) {
     try {
       const url = `${route}${queryStringBuilder(query)}`;
-
       const request = await instance({
         method,
         url,
@@ -35,7 +34,6 @@ for (const method of methods) {
           "Authorization": `Bearer ${headers}`
         },
       });
-
       return complete ? request : request.data;
     } catch (err) {
       console.error(err);
