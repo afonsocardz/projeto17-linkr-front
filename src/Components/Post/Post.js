@@ -1,12 +1,19 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
+import { ReactTagify } from "react-tagify";
 import UserPicture from "../User/UserPicture";
 import PostLike from "./PostLike";
 import PostMetadata from "./PostMetadata";
 
 export default function Post({ post }) {
-  const { message, userPicture, username, id } = post;
+  const { message, userPicture, username, id, hashtag } = post;
+  const navigate = useNavigate();
+
+  function goToHashtagPage(click){
+    const hashtag = click.substring(1);
+    navigate(`/hashtag/${hashtag}`);
+}
+
   return (
     <PostContainer>
       <PictureContainer>
@@ -17,7 +24,12 @@ export default function Post({ post }) {
         <Username>
           <Link to={`/user/${id}`}> {username}</Link>
         </Username>
-        <Message>{message}</Message>
+        <ReactTagify
+          tagStyle={tagStyle}
+          tagClicked={(click) => goToHashtagPage(click)}
+        >
+          <Message>{message}</Message>
+        </ReactTagify>
         <PostMetadata post={post} />
       </ContentContainer>
     </PostContainer>
@@ -61,3 +73,9 @@ const PictureContainer = styled.div`
   justify-content: start;
   margin-right: 14px;
 `;
+
+const tagStyle={
+  color: "white",
+  fontWeigth: 700,
+  cursor: 'pointer'
+};
