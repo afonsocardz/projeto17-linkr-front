@@ -4,14 +4,17 @@ import { useUserContext } from "../Contexts/UserContext";
 import PostCreate from "../Components/Post/PostCreate";
 import Trending from "../Components/Trending/Trending";
 import Post from "../Components/Post/Post";
-import { getPosts } from "../Services/api/posts";
 import Header from "../Components/Header/Header.js";
+import { useUpdateContext } from "../Contexts/UpdateContext";
+import { useHashtagsContext } from "../Contexts/HashtagsContext";
+import { getPosts } from "../Services/api/posts";
+import { getHashtags } from "../Services/api/hashtags";
 
 export default function Timeline() {
   const [posts, setPosts] = useState(false);
-  const [update, setUpdate] = useState(false);
-
-  const { user, setUser } = useUserContext();
+  const { setUser } = useUserContext();
+  const { updatee } = useUpdateContext();
+  const { setHashtags } = useHashtagsContext();
   const localStorageUser = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
@@ -21,6 +24,8 @@ export default function Timeline() {
         if (localStorageUser) {
           setUser(localStorageUser);
           const newPosts = await getPosts(localStorageUser.id)
+          const updateHashtags = await getHashtags(localStorageUser.token);
+          setHashtags(updateHashtags);
           setPosts(newPosts);
         } 
       } catch (err) {
@@ -30,7 +35,7 @@ export default function Timeline() {
       }
     }
     fetchData();
-  }, [update]);
+  }, [updatee]);
 
   function listPosts() {
     if (!posts) {
@@ -50,10 +55,10 @@ export default function Timeline() {
           <TimelineDiv>
             <h1>Timeline</h1>
           </TimelineDiv>
-          <PostCreate setUpdate={setUpdate} update={update} />
+          <PostCreate />
           {listPosts()}
         </FeedContainer>
-          <Trending />
+        <Trending />
       </MainContainer>
     </>
   );

@@ -5,12 +5,12 @@ import Header from "../Components/Header/Header.js";
 import Post from "../Components/Post/Post";
 import Trending from "../Components/Trending/Trending";
 import { useUserContext } from "../Contexts/UserContext.js";
-import { getPostsByHashtag } from "../Services/api/hashtags";
+import { getPostsByHashtag } from "../Services/api/hashtags.js";
 
 export default function Hashtag() {
   const { hashtag } = useParams();
   const [posts, setPosts] = useState(false);
-  const { user, setUser } = useUserContext();
+  const { setUser } = useUserContext();
   const localStorageUser = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
