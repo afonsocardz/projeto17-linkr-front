@@ -6,13 +6,15 @@ import PostMessage from "./PostMessage";
 import PostButton from "./PostButton";
 import { useUserContext } from "../../Contexts/UserContext";
 import { create } from "../../Services/api/posts";
+import { useUpdateContext } from "../../Contexts/UpdateContext";
 
-export default function PostCreate({ setUpdate, update }) {
+export default function PostCreate() {
   const [url, setUrl] = useState("");
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useUserContext();
+  const { updatee, setUpdatee } = useUpdateContext();
 
   async function createPost() {
     setIsLoading(true);
@@ -23,14 +25,15 @@ export default function PostCreate({ setUpdate, update }) {
         setUrl("");
         setMessage("");
         setIsLoading(false);
-        setUpdate(!update);
+        
+        setUpdatee(!updatee);
       }
     } catch (err) {
       if (err.status === 422) {
         setErrors(err.data);
       }
       if (err.status === 500) {
-        alert("Houve um erro ao publica seu link!");
+        alert("Houve um erro ao publicar seu link!");
       }
       setIsLoading(false);
     }

@@ -4,6 +4,6 @@ export function getHashtags() {
   return api.get("/hashtag");
 }
 
-export function getPostsByHashtag(searchHashtag, hashtag, token) {
+export function getPostsByHashtag(searchHashtag, token) {
   return api.get(`/hashtag/${searchHashtag}`, null, token);
 }

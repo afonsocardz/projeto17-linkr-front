@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useHashtagsContext } from "../../Contexts/HashtagsContext";
+import { useUpdateContext } from "../../Contexts/UpdateContext";
 import { getHashtags } from "../../Services/api/hashtags";
 
 export default function Trending() {
-  const [listOfHashtags, setListOfHashtags] = useState([]);
+  const { hashtags, setHashtags } = useHashtagsContext();
+  const { updatee, setUpdatee } = useUpdateContext();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -14,7 +17,12 @@ export default function Trending() {
 
   async function trendingHashtags() {
     try {
-      setListOfHashtags(await getHashtags());
+      const response = await getHashtags();
+      
+      if (response){
+        setHashtags(response);
+        setUpdatee(!updatee);
+      }
     } catch (err) {
       alert(`${err.data}`);
     }
@@ -26,7 +34,7 @@ export default function Trending() {
         <h4>trending</h4>
       </Tittle>
       <TrendingHashtags>
-        {listOfHashtags.length === 0 ? (
+        {hashtags.length === 0 ? (
           <SpninnerContainer>
             <RotatingLines
               strokeColor="grey"
@@ -38,7 +46,7 @@ export default function Trending() {
           </SpninnerContainer>
         ) : (
           <>
-            {listOfHashtags.map((hashtag, index) => {
+            {hashtags.map((hashtag, index) => {
               return (
                 <Hashtag
                   key={index}
