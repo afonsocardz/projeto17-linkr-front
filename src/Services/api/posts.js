@@ -21,8 +21,8 @@ export function editPost(id, message, token){
   }, token);
 }
 
-export function getPosts(id) {
-  return api.get("/posts", null, null, { id });
+export function getPosts(numberPage, id) {
+  return api.get(`posts?page=${numberPage}&limit=10`, null, null, { id });
 }
 
 export function getPostsByUserId(id, searchedUserId, token) {

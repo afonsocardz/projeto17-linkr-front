@@ -13,6 +13,7 @@ const GlobalStyle = createGlobalStyle`
     background-color: #333333;
     font-family: 'Lato', sans-serif;
     margin: 0;
+    overflow-x: hidden;
   }
 
   input, button, textarea {
