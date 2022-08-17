@@ -13,12 +13,11 @@ import { getHashtags } from "../Services/api/hashtags";
 export default function Timeline() {
   const [posts, setPosts] = useState(false);
   const { setUser } = useUserContext();
-  const { updatee } = useUpdateContext();
+  const { update } = useUpdateContext();
   const { setHashtags } = useHashtagsContext();
   const localStorageUser = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
-    console.log('atualiza');
     async function fetchData() {
       try {
         if (localStorageUser) {
@@ -35,7 +34,7 @@ export default function Timeline() {
       }
     }
     fetchData();
-  }, [updatee]);
+  }, [update]);
 
   function listPosts() {
     if (!posts) {

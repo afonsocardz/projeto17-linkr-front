@@ -9,14 +9,14 @@ import { getHashtags } from "../../Services/api/hashtags";
 
 export default function Trending() {
   const { hashtags, setHashtags } = useHashtagsContext();
-  const { updatee, setUpdatee } = useUpdateContext();
+  const { hashtagsUpdate, sethastagsUpdate } = useUpdateContext();
   const { setUser } = useUserContext();
   const localStorageUser = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
 
   useEffect(() => {
     trendingHashtags();
-  }, [updatee]);
+  }, [hashtagsUpdate]);
 
   async function trendingHashtags() {
     try {
@@ -26,7 +26,7 @@ export default function Trending() {
         
         if (response){
           setHashtags(response);
-          setUpdatee(!updatee);
+          sethastagsUpdate(!hashtagsUpdate);
         }
       }
     } catch (err) {
