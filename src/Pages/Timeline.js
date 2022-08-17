@@ -4,18 +4,19 @@ import styled from "styled-components";
 import Header from "../Components/Header/Header.js";
 import Trending from "../Components/Trending/Trending";
 import PostCreate from "../Components/Post/PostCreate";
-import Post from "../Components/Post/Post";
+import AllPosts from "../Components/Post/AllPosts.js";
 import { useUserContext } from "../Contexts/UserContext";
 import { useUpdateContext } from "../Contexts/UpdateContext";
 import { useHashtagsContext } from "../Contexts/HashtagsContext";
 import { getPosts } from "../Services/api/posts";
 import { getHashtags } from "../Services/api/hashtags";
+import { usePostsContext } from "../Contexts/PostsContext.js";
 
 export default function Timeline() {
-  const [posts, setPosts] = useState([]);
+  const {posts, setPosts} =usePostsContext();
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(2);
-  const { user, setUser } = useUserContext();
+  const { setUser } = useUserContext();
   const { update } = useUpdateContext();
   const { setHashtags } = useHashtagsContext();
   const localStorageUser = JSON.parse(localStorage.getItem("user"));
@@ -71,16 +72,6 @@ export default function Timeline() {
     }
   };
 
-  async function listPosts() {
-    if (!posts) {
-      return <span style={{ color: "white" }}>Loading...</span>;
-    }
-    if (posts?.length === 0) {
-      return <span style={{ color: "white" }}>There is no post yet.</span>;
-    }
-    return posts.map((post, index) => <Post key={index} post={post} />);
-  }
-
   return (
     <>
       <Header />
@@ -97,7 +88,7 @@ export default function Timeline() {
               <h1>Timeline</h1>
             </TimelineDiv>
             <PostCreate />
-            {() => listPosts()}
+            <AllPosts />
           </InfiniteScroll>
         </FeedContainer>
         <Trending />

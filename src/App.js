@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HashtagsContextProvider from "./Contexts/HashtagsContext";
 import { MenuProvider } from "./Contexts/MenuContext";
+import PostsContextProvider from "./Contexts/PostsContext";
 import UpdateContextProvider from "./Contexts/UpdateContext";
 import UserContextProvider from "./Contexts/UserContext";
 import GlobalStyle from "./globalStyle";
@@ -16,21 +17,23 @@ export default function App() {
     <MenuProvider>
       <BrowserRouter>
         <GlobalStyle />
-        <UpdateContextProvider>
-          <HashtagsContextProvider>
-            <UserContextProvider>
-              <AuthProvider>
-                <Routes>
-                  <Route path="/" element={<SignIn />} />
-                  <Route path="/sign-up" element={<SignUp />} />
-                  <Route path="/timeline" element={<Timeline />} />
-                  <Route path="/user/:id" element={<UserPosts />} />
-                  <Route path="/hashtag/:hashtag" element={<Hashtag />} />
-                </Routes>
-              </AuthProvider>
-            </UserContextProvider>
-          </HashtagsContextProvider>
-        </UpdateContextProvider>
+        <UserContextProvider>
+          <UpdateContextProvider>
+            <PostsContextProvider>
+              <HashtagsContextProvider>
+                <AuthProvider>
+                  <Routes>
+                    <Route path="/" element={<SignIn />} />
+                    <Route path="/sign-up" element={<SignUp />} />
+                    <Route path="/timeline" element={<Timeline />} />
+                    <Route path="/user/:id" element={<UserPosts />} />
+                    <Route path="/hashtag/:hashtag" element={<Hashtag />} />
+                  </Routes>
+                </AuthProvider>
+              </HashtagsContextProvider>
+            </PostsContextProvider>
+          </UpdateContextProvider>
+        </UserContextProvider>
       </BrowserRouter>
     </MenuProvider>
   );
