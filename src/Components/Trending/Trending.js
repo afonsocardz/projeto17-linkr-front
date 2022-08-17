@@ -4,24 +4,30 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useHashtagsContext } from "../../Contexts/HashtagsContext";
 import { useUpdateContext } from "../../Contexts/UpdateContext";
+import { useUserContext } from "../../Contexts/UserContext";
 import { getHashtags } from "../../Services/api/hashtags";
 
 export default function Trending() {
   const { hashtags, setHashtags } = useHashtagsContext();
   const { updatee, setUpdatee } = useUpdateContext();
+  const { setUser } = useUserContext();
+  const localStorageUser = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
 
   useEffect(() => {
     trendingHashtags();
-  }, []);
+  }, [updatee]);
 
   async function trendingHashtags() {
     try {
-      const response = await getHashtags();
-      
-      if (response){
-        setHashtags(response);
-        setUpdatee(!updatee);
+      if (localStorageUser){
+        setUser(localStorageUser);
+        const response = await getHashtags(localStorageUser.token);
+        
+        if (response){
+          setHashtags(response);
+          setUpdatee(!updatee);
+        }
       }
     } catch (err) {
       alert(`${err.data}`);

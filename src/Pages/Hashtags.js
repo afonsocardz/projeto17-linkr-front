@@ -17,17 +17,14 @@ export default function Hashtag() {
 
   useEffect(() => {
     specificHashtag();
-  }, [updatee]);
+  }, []);
 
   async function specificHashtag() {
     try {
       if (localStorageUser) {
-        const response = await getPostsByHashtag(hashtag, localStorageUser.token);
         setUser(localStorageUser);
+        const response = await getPostsByHashtag(hashtag, localStorageUser.token);
         setPosts(response);
-        setUpdatee(!updatee);
-      } else {
-        setPosts(await getPostsByHashtag(hashtag));
         setUpdatee(!updatee);
       }
     } catch (err) {
