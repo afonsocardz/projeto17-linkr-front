@@ -7,6 +7,7 @@ import { getPostsByUserId } from "../Services/api/posts";
 import Header from "../Components/Header/Header.js";
 import { useParams } from "react-router-dom";
 import { searchUserById } from "../Services/api/search";
+import PostButton from "../Components/Post/PostButton";
 
 export default function UserPosts() {
   const [posts, setPosts] = useState(false);
@@ -14,6 +15,8 @@ export default function UserPosts() {
   const { user, setUser } = useUserContext();
   const { id } = useParams();
   const localStorageUser = JSON.parse(localStorage.getItem("user"));
+  const [disable, setDisable] = useState(false);
+  const [followUnfollow, setFollowUnfollow] = useState("Follow");
 
   useEffect(() => {
     async function getUser() {
@@ -70,6 +73,11 @@ export default function UserPosts() {
         <Container>
           <UsernameDiv>
             {username ? <h1>{username}'s Posts</h1> : null}
+            <PostButton
+              isLoading={disable}
+              text={followUnfollow}
+              createPost={() => console.log("segui")}
+            />
           </UsernameDiv>
           <FeedContainer>{listPosts()}</FeedContainer>
         </Container>
@@ -97,11 +105,12 @@ const FeedContainer = styled.div`
 `;
 
 const UsernameDiv = styled.div`
-  max-width: 611px;
+  width: 937px;
   height: 160px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 
   h1 {
     font-size: 43px;
@@ -114,4 +123,5 @@ const UsernameDiv = styled.div`
 
 const Container = styled.div`
   margin-right: 25px;
+  max-width: 611px;
 `;

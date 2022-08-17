@@ -18,16 +18,16 @@ export default function Timeline() {
   const localStorageUser = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
-    console.log('atualiza');
+    console.log("atualiza");
     async function fetchData() {
       try {
         if (localStorageUser) {
           setUser(localStorageUser);
-          const newPosts = await getPosts(localStorageUser.id)
+          const newPosts = await getPosts(localStorageUser.id);
           const updateHashtags = await getHashtags(localStorageUser.token);
           setHashtags(updateHashtags);
           setPosts(newPosts);
-        } 
+        }
       } catch (err) {
         alert(
           "An error occured while trying to fetch the posts, please refresh the page"
@@ -74,24 +74,23 @@ const MainContainer = styled.main`
   overflow-x: hidden;
 `;
 
-
 const TimelineDiv = styled.div`
   max-width: 611px;
   height: 160px;
   display: flex;
   align-items: center;
   display: flex;
-  
+
   h1 {
     font-size: 43px;
     font-family: "Oswald", sans-serif;
     font-weight: 700;
     color: #ffffff;
   }
-  `;
+`;
 const FeedContainer = styled.div`
   max-width: 611px;
   margin-right: 25px;
   display: flex;
   flex-direction: column;
-  `;
+`;
