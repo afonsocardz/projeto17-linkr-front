@@ -11,6 +11,8 @@ import { useHashtagsContext } from "../Contexts/HashtagsContext";
 import { getPosts } from "../Services/api/posts";
 import { getHashtags } from "../Services/api/hashtags";
 import { usePostsContext } from "../Contexts/PostsContext.js";
+import Loading from "../Components/Loading/Loading.js";
+import Loadingtext from "../Components/Loading/EndText.js";
 
 export default function Timeline() {
   const {posts, setPosts} =usePostsContext();
@@ -81,8 +83,8 @@ export default function Timeline() {
             dataLength={posts.length}
             next={fetchPage}
             hasMore={hasMore}
-            loader={<p>Loading</p>}
-            endMessage={<p>Thas it's all folks!</p>}
+            loader={<Loading />}
+            endMessage={<Loadingtext/>}
           >
             <TimelineDiv>
               <h1>Timeline</h1>
@@ -101,6 +103,7 @@ const MainContainer = styled.main`
   width: 100%;
   height: 100%;
   margin-top: 72px;
+  margin-bottom: 220px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -126,4 +129,5 @@ const FeedContainer = styled.div`
   margin-right: 25px;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 `;
