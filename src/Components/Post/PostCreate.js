@@ -14,7 +14,7 @@ export default function PostCreate() {
   const [errors, setErrors] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useUserContext();
-  const { updatee, setUpdatee } = useUpdateContext();
+  const { update, setUpdate } = useUpdateContext();
 
   async function createPost() {
     setIsLoading(true);
@@ -25,8 +25,7 @@ export default function PostCreate() {
         setUrl("");
         setMessage("");
         setIsLoading(false);
-        
-        setUpdatee(!updatee);
+        setUpdate(!update);
       }
     } catch (err) {
       if (err.status === 422) {

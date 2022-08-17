@@ -12,23 +12,18 @@ export default function Hashtag() {
   const { hashtag } = useParams();
   const [posts, setPosts] = useState(false);
   const { setUser } = useUserContext();
-  const { updatee, setUpdatee } = useUpdateContext();
   const localStorageUser = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     specificHashtag();
-  }, [updatee]);
+  }, [hashtag]);
 
   async function specificHashtag() {
     try {
       if (localStorageUser) {
-        const response = await getPostsByHashtag(hashtag, localStorageUser.token);
         setUser(localStorageUser);
+        const response = await getPostsByHashtag(hashtag, localStorageUser.token);
         setPosts(response);
-        setUpdatee(!updatee);
-      } else {
-        setPosts(await getPostsByHashtag(hashtag));
-        setUpdatee(!updatee);
       }
     } catch (err) {
       alert(
