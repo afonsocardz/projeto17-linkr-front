@@ -11,11 +11,13 @@ import EditableMessage from "./Message/EditableMessage";
 import PostLike from "./PostLike";
 import PostMetadata from "./PostMetadata";
 import { delPost } from "../../Services/api/posts";
+import PostComment from "./PostComment.js";
 
 export default function Post({ post }) {
   const [isEditing, setIsEditing] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [commentIsOpen, setCommentIsOpen] = useState(false);
 
   const { user } = useUserContext();
   const { message, userPicture, username, id, userId, hashtag } = post;
@@ -41,56 +43,64 @@ export default function Post({ post }) {
       setIsLoading(false);
       closeModal();
     }
+  }
+
+  async function commentHandler() {
 
   }
-  
-    
-
-
 
   function toggleEditing() {
     setIsEditing(!isEditing);
   }
 
+  function toggleComment(){
+    setCommentIsOpen(!commentIsOpen);
+  }
+
   return (
-    <PostContainer id={id}>
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        className="_"
-        overlayClassName="_"
-        contentElement={(props, children) => (
-          <H.ModalStyle {...props}>{children}</H.ModalStyle>
-        )}
-        overlayElement={(props, contentElement) => (
-          <H.OverlayStyle {...props}>{contentElement}</H.OverlayStyle>
-        )}
-      >
-        <span>{isLoading ? "Loading..." : 'Are you sure you want to delete this post?'}</span>
+    <div style={styledDiv}>
+      <PostContainer id={id}>
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          className="_"
+          overlayClassName="_"
+          contentElement={(props, children) => (
+            <H.ModalStyle {...props}>{children}</H.ModalStyle>
+          )}
+          overlayElement={(props, contentElement) => (
+            <H.OverlayStyle {...props}>{contentElement}</H.OverlayStyle>
+          )}
+        >
+          <span>{isLoading ? "Loading..." : 'Are you sure you want to delete this post?'}</span>
 
-        <div>
-          <button onClick={closeModal}>No, go back</button>
-          <button onClick={deletePost}>Yes</button>
-        </div>
-      </Modal>
-      <PictureContainer>
-        <UserPicture imageUrl={userPicture} />
-        <PostLike post={post} />
-      </PictureContainer>
-      <ContentContainer>
-
-        <PostTopContainer>
-          <Username>
-            <Link to={`/user/${userId}`}> {username}</Link>
-          </Username>
-          {user.id === post.userId && <div><FaPen onClick={() => toggleEditing()} /> <FaTrashAlt onClick={() => openModal()} /></div>}
-        </PostTopContainer>
-        <EditableMessage message={message} hashtag={hashtag} isEditing={isEditing} id={id} toggleEditing={toggleEditing} />
-
-        <PostMetadata post={post} />
-      </ContentContainer>
-    </PostContainer>
+          <div>
+            <button onClick={closeModal}>No, go back</button>
+            <button onClick={deletePost}>Yes</button>
+          </div>
+        </Modal>
+        <PictureContainer>
+          <UserPicture imageUrl={userPicture} />
+          <PostLike post={post} toggleComment={toggleComment}/>
+        </PictureContainer>
+        <ContentContainer>
+          <PostTopContainer>
+            <Username>
+              <Link to={`/user/${userId}`}> {username}</Link>
+            </Username>
+            {user.id === post.userId && <div><FaPen onClick={() => toggleEditing()} /> <FaTrashAlt onClick={() => openModal()} /></div>}
+          </PostTopContainer>
+          <EditableMessage message={message} hashtag={hashtag} isEditing={isEditing} id={id} toggleEditing={toggleEditing} />
+          <PostMetadata post={post} />
+        </ContentContainer>
+      </PostContainer>
+      <PostComment toggleComment={toggleComment} commentIsOpen={commentIsOpen}/>
+    </div>
   );
+}
+const styledDiv = {
+  display: 'flex',
+  flexDirection: 'column'
 }
 
 const PostTopContainer = styled.div`
@@ -117,7 +127,7 @@ const PostContainer = styled.div`
   padding: 13px 18px;
   border-radius: 16px;
   background-color: #171717;
-  margin-bottom: 29px;
+  z-index: 1;
 `;
 
 const ContentContainer = styled.div`
