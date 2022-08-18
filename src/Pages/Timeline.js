@@ -9,10 +9,11 @@ import { useUpdateContext } from "../Contexts/UpdateContext";
 import { useHashtagsContext } from "../Contexts/HashtagsContext";
 import { getPosts } from "../Services/api/posts";
 import { getHashtags } from "../Services/api/hashtags";
+import { getFollowedUsers } from "../Services/api/followeds";
 
 export default function Timeline() {
   const [posts, setPosts] = useState(false);
-  const { setUser } = useUserContext();
+  const { user, setUser } = useUserContext();
   const { updatee } = useUpdateContext();
   const { setHashtags } = useHashtagsContext();
   const localStorageUser = JSON.parse(localStorage.getItem("user"));
@@ -27,6 +28,11 @@ export default function Timeline() {
           const updateHashtags = await getHashtags(localStorageUser.token);
           setHashtags(updateHashtags);
           setPosts(newPosts);
+        }
+        if (user.id) {
+          const followedUsers = await getFollowedUsers(user.id, user.token);
+          console.log(followedUsers);
+          setUser({ ...user, followedUsers });
         }
       } catch (err) {
         alert(

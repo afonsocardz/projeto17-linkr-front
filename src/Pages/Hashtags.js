@@ -6,12 +6,13 @@ import Post from "../Components/Post/Post";
 import Trending from "../Components/Trending/Trending";
 import { useUpdateContext } from "../Contexts/UpdateContext.js";
 import { useUserContext } from "../Contexts/UserContext.js";
+import { getFollowedUsers } from "../Services/api/followeds.js";
 import { getPostsByHashtag } from "../Services/api/hashtags.js";
 
 export default function Hashtag() {
   const { hashtag } = useParams();
   const [posts, setPosts] = useState(false);
-  const { setUser } = useUserContext();
+  const { user, setUser } = useUserContext();
   const { updatee, setUpdatee } = useUpdateContext();
   const localStorageUser = JSON.parse(localStorage.getItem("user"));
 
@@ -22,12 +23,17 @@ export default function Hashtag() {
   async function specificHashtag() {
     try {
       if (localStorageUser) {
-        const response = await getPostsByHashtag(hashtag, localStorageUser.token);
+        const response = await getPostsByHashtag(
+          hashtag,
+          localStorageUser.token
+        );
         setUser(localStorageUser);
         setPosts(response);
+
         setUpdatee(!updatee);
       } else {
         setPosts(await getPostsByHashtag(hashtag));
+
         setUpdatee(!updatee);
       }
     } catch (err) {
@@ -90,7 +96,7 @@ const HashtagName = styled.div`
 `;
 
 const Container = styled.div`
-    margin-right: 25px;
+  margin-right: 25px;
 `;
 
 const FeedContainer = styled.div`

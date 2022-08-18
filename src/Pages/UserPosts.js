@@ -8,6 +8,7 @@ import Header from "../Components/Header/Header.js";
 import { useParams } from "react-router-dom";
 import { searchUserById } from "../Services/api/search";
 import PostButton from "../Components/Post/PostButton";
+import { followUnfollow, getFollowedUsers } from "../Services/api/followeds";
 
 export default function UserPosts() {
   const [posts, setPosts] = useState(false);
@@ -16,7 +17,7 @@ export default function UserPosts() {
   const { id } = useParams();
   const localStorageUser = JSON.parse(localStorage.getItem("user"));
   const [disable, setDisable] = useState(false);
-  const [followUnfollow, setFollowUnfollow] = useState("Follow");
+  const [isFollowed, setIsFollowed] = useState(false);
 
   useEffect(() => {
     async function getUser() {
@@ -30,7 +31,7 @@ export default function UserPosts() {
       }
     }
     getUser();
-  });
+  }, []);
 
   useEffect(() => {
     async function fetchData() {
@@ -46,6 +47,18 @@ export default function UserPosts() {
           );
         } else {
           setPosts(await getPostsByUserId(user.id, id, user.token));
+        }
+        if (user.id) {
+          const followedUsers = await getFollowedUsers(user.id, user.token);
+          console.log(followedUsers);
+          setUser({ ...user, followedUsers });
+          if (
+            followedUsers
+              .map((followed) => followed.followedUserId)
+              .includes(Number(id))
+          ) {
+            setIsFollowed(true);
+          }
         }
       } catch (err) {
         alert(
@@ -73,11 +86,17 @@ export default function UserPosts() {
         <Container>
           <UsernameDiv>
             {username ? <h1>{username}'s Posts</h1> : null}
-            <PostButton
-              isLoading={disable}
-              text={followUnfollow}
-              createPost={() => console.log("segui")}
-            />
+            {user.id === Number(id) ? null : (
+              <PostButton
+                changeColor={isFollowed}
+                isLoading={disable}
+                text={isFollowed ? "Unfollow" : "Follow"}
+                createPost={() => {
+                  followUnfollow(user.id, id, user.token);
+                  setIsFollowed(!isFollowed);
+                }}
+              />
+            )}
           </UsernameDiv>
           <FeedContainer>{listPosts()}</FeedContainer>
         </Container>
