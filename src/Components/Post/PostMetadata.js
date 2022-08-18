@@ -63,9 +63,15 @@ const TextContainer = styled.div`
 
 const UrlContainer = styled.div`
   display: flex;
+  max-width: 511px;
   justify-content: space-between;
   height: 155px;
   border: 1px solid #4d4d4d;
   border-radius: 11px;
   overflow: hidden;
+  img {
+    max-width: 153px;
+    max-height: 153px;
+    object-fit: cover;
+  }
 `;

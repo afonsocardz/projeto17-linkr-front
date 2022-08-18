@@ -13,12 +13,13 @@ import { getHashtags } from "../Services/api/hashtags";
 import { usePostsContext } from "../Contexts/PostsContext.js";
 import Loading from "../Components/Loading/Loading.js";
 import Loadingtext from "../Components/Loading/EndText.js";
+import { getFollowedUsers } from "../Services/api/followeds";
 
 export default function Timeline() {
-  const {posts, setPosts} =usePostsContext();
+  const { posts, setPosts } = usePostsContext();
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(2);
-  const { setUser } = useUserContext();
+  const { user, setUser } = useUserContext();
   const { update } = useUpdateContext();
   const { setHashtags } = useHashtagsContext();
   const localStorageUser = JSON.parse(localStorage.getItem("user"));
@@ -32,6 +33,11 @@ export default function Timeline() {
           const updateHashtags = await getHashtags(localStorageUser.token);
           setHashtags(updateHashtags);
           setPosts(newPosts);
+        }
+        if (user.id) {
+          const followedUsers = await getFollowedUsers(user.id, user.token);
+          console.log(followedUsers);
+          setUser({ ...user, followedUsers });
         }
       } catch (err) {
         alert(
@@ -84,7 +90,7 @@ export default function Timeline() {
             next={fetchPage}
             hasMore={hasMore}
             loader={<Loading />}
-            endMessage={<Loadingtext/>}
+            endMessage={<Loadingtext />}
           >
             <TimelineDiv>
               <h1>Timeline</h1>

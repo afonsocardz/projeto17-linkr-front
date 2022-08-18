@@ -14,7 +14,6 @@ import { Navbar } from "./Navbar";
 import { NavItem } from "./NavItem";
 import { NavItemHidden } from "./NavItemHidden";
 
-import { useAuth } from "../../hooks/useAuth.js";
 import { DropdownMenu } from "./DropdownMenu";
 import SearchInput from "./SearchInput";
 import { useUserContext } from "../../Contexts/UserContext";
