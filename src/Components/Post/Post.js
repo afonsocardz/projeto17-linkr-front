@@ -1,5 +1,5 @@
 import { FaPen, FaTrashAlt } from "react-icons/fa";
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import Modal from "react-modal";
 import * as H from "../Header/style.js";
 import { useUserContext } from "../../Contexts/UserContext";
@@ -12,14 +12,18 @@ import PostLike from "./PostLike";
 import PostMetadata from "./PostMetadata";
 import { delPost } from "../../Services/api/posts";
 import PostComment from "./PostComment.js";
+import { useUpdateContext } from "../../Contexts/UpdateContext.js";
+import { getComments } from "../../Services/api/comments.js";
 
 export default function Post({ post }) {
   const [isEditing, setIsEditing] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [commentIsOpen, setCommentIsOpen] = useState(false);
+  const [comments, setComments] = useState(false);
 
   const { user } = useUserContext();
+  const {updateComment, setUpdateComment} = useUpdateContext();
   const { message, userPicture, username, id, userId, hashtag } = post;
 
   Modal.setAppElement(document.querySelector(".root"));
@@ -45,17 +49,26 @@ export default function Post({ post }) {
     }
   }
 
-  async function commentHandler() {
-
-  }
-
   function toggleEditing() {
     setIsEditing(!isEditing);
   }
 
   function toggleComment(){
     setCommentIsOpen(!commentIsOpen);
+    if(!commentIsOpen){
+      setUpdateComment(!updateComment);
+    }
   }
+
+  useEffect(() => {
+    async function fetchComments() {
+      const newComments = await getComments(post.id, user.token);
+      setComments(newComments);
+    }
+    if(commentIsOpen){
+      fetchComments();
+    }
+  },[updateComment]);
 
   return (
     <div style={styledDiv}>
@@ -94,7 +107,7 @@ export default function Post({ post }) {
           <PostMetadata post={post} />
         </ContentContainer>
       </PostContainer>
-      <PostComment toggleComment={toggleComment} commentIsOpen={commentIsOpen}/>
+      <PostComment commentIsOpen={commentIsOpen} post={post} comments={comments}/>
     </div>
   );
 }

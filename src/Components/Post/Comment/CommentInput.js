@@ -2,21 +2,23 @@ import styled from "styled-components";
 import { FaRegPaperPlane } from "react-icons/fa";
 import UserPicture from "../../User/UserPicture";
 
-export default function CommentInput() {
+export default function CommentInput({ submitHandler, setValue, value }) {
   return (
     <InputContainer>
-      <UserPicture />
+      <UserPicture imageSize={'39px'} imageUrl={'https://observatoriodocinema.uol.com.br/wp-content/uploads/2016/03/the-100-lexa.jpg'} />
       <InputBackground>
-        <InputWrapper>
-          <Input />
-          <SendButton />
+        <InputWrapper onSubmit={(e) => submitHandler(e)}>
+          <Input value={value} onChange={(e) => setValue(e.target.value)} />
+          <button style={{backgroundColor: 'transparent'}} type="submit">
+            <SendIcon />
+          </button>
         </InputWrapper>
       </InputBackground>
     </InputContainer>
   );
 }
 
-const InputWrapper = styled.div`
+const InputWrapper = styled.form`
   position: absolute;
   display: flex;
   justify-content: space-between;
@@ -25,7 +27,7 @@ const InputWrapper = styled.div`
   padding: 11px 15px;
 `;
 
-const SendButton = styled(FaRegPaperPlane)`
+const SendIcon = styled(FaRegPaperPlane)`
   fill: white;
   font-size: 15px;
 `;
@@ -39,7 +41,7 @@ const InputBackground = styled.div`
   border-radius: 8px;
   height: 39px;
   width: 100%;
-  
+  margin-left: 14px;
 `;
 
 const Input = styled.input`
@@ -59,4 +61,6 @@ const Input = styled.input`
 const InputContainer = styled.div`
   display: flex;
   width: 100%;
+  padding: 0 5px;
+  margin-top: 19px;
 `;

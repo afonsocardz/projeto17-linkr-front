@@ -8,7 +8,7 @@ import { useUserContext } from '../../Contexts/UserContext';
 
 export default function PostLike({ post, toggleComment }) {
   const { user } = useUserContext();
-  const { likes, likeStatus, id, whoLiked } = post;
+  const { likes, likeStatus, id, whoLiked, comments } = post;
   const [likeQty, setLikeQty] = useState(Number(likes));
   const [like, setLike] = useState(likeStatus);
   console.log(like);
@@ -33,8 +33,9 @@ export default function PostLike({ post, toggleComment }) {
     <>
       <LikeContainer>
         <LikeButton like={like} likeHandler={likeHandler} likeQty={likeQty} whoLiked={whoLiked} />
-        <LikesCounter>{likeQty > 0 ? `${likeQty} likes` : ''}</LikesCounter>
+        <Counter>{likeQty > 0 ? `${likeQty} likes` : ''}</Counter>
         <CommnentIcon onClick={toggleComment}/>
+        <Counter>{comments > 0 ? `${comments} Comments` : ''}</Counter>
       </LikeContainer>
     </>
   );
@@ -53,7 +54,7 @@ const LikeContainer = styled.div`
   align-items: center;
 `;
 
-const LikesCounter = styled.span`
+const Counter = styled.span`
   color: white;
   margin-top: 4px;
   text-align: center;

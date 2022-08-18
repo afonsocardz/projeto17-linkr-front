@@ -34,12 +34,17 @@ export default function PostMetadata({ post }) {
 const Url = styled.h3`
   color: #cecece;
   font-size: 11px;
+  text-overflow: ellipsis;
+  max-width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
 `;
 
 const UrlDescription = styled.h2`
   color: #9b9595;
   font-size: 11px;
   margin-top: 5px;
+  
 `;
 
 const UrlTitle = styled.h1`
