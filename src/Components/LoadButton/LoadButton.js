@@ -1,36 +1,36 @@
 import styled from "styled-components";
 import { HiRefresh } from "react-icons/hi";
-import useInterval from "use-interval";
 import { useUpdateContext } from "../../Contexts/UpdateContext";
 import { getPosts } from "../../Services/api/posts";
 import { usePostsContext } from "../../Contexts/PostsContext";
 import { useUserContext } from "../../Contexts/UserContext";
 
 export default function LoadButton() {
-  const { feedUpadate, setFeedUpdate } = useUpdateContext();
+  const { newPostsUpdate, setNewPostsUpdate } = useUpdateContext();
   const { setUser } = useUserContext();
   const { setPosts } = usePostsContext();
+  const { newPostsCount } = usePostsContext();
   const localStorageUser = JSON.parse(localStorage.getItem("user"));
 
   async function refreshPosts() {
     try {
-      setFeedUpdate(!feedUpadate);
+      setNewPostsUpdate(!newPostsUpdate);
       if (localStorageUser) {
         setUser(localStorageUser);
-        const refresh = await getPosts(1, localStorageUser.token);
+        const refresh = await getPosts(1, localStorageUser.id);
 
         if (refresh) {
-          setFeedUpdate(!feedUpadate);
+          setNewPostsUpdate(!newPostsUpdate);
           setPosts(refresh);
         }
       }
     } catch (err) {
-      alert("Error to refresh posts");
+      alert("Error when clicking to refresh posts");
     }
   }
   return (
-    <Button disabled={feedUpadate} onClick={() => refreshPosts}>
-      <h6>X new posts, load more!</h6>
+    <Button disabled={newPostsUpdate} onClick={() => refreshPosts()}>
+      <h6>{newPostsCount} new posts, load more!</h6>
       <HiRefresh />
     </Button>
   );

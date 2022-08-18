@@ -7,7 +7,7 @@ export const useUpdateContext = () => useContext(UpdateContext);
 export default function UpdateContextProvider({ children }) {
   const [update, setUpdate] = useState(false);
   const [hastagsUpdate, setHashtagsUpdate] = useState(false);
-  const [feedUpdate, setFeedUpdate] = useState(false);
+  const [newPostsUpdate, setNewPostsUpdate] = useState(true);
 
   return (
     <UpdateContext.Provider
@@ -16,8 +16,8 @@ export default function UpdateContextProvider({ children }) {
         setUpdate,
         hastagsUpdate,
         setHashtagsUpdate,
-        feedUpdate,
-        setFeedUpdate,
+        newPostsUpdate,
+        setNewPostsUpdate,
       }}
     >
       {children}
