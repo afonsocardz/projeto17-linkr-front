@@ -56,5 +56,5 @@ const CommentModalContainer = styled.div`
   border-radius: 16px;
   padding: 25px 20px;
   transition: height 0.3s ease-in;
-  ${({ isOpen }) => isOpen && css`max-height: 375px;`};
+  ${({ isOpen }) => isOpen && css`height: 375px;`};
 `;
