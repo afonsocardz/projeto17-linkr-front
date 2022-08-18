@@ -47,7 +47,7 @@ export default function Timeline() {
     }
     fetchData();
   }, [update]);
-
+  console.log("renderiza");
   const fetchPosts = async () => {
     try {
       if (localStorageUser) {

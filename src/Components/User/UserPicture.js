@@ -1,16 +1,16 @@
 import styled from 'styled-components';
 
-export default function UserPicture ({imageUrl}){
+export default function UserPicture ({imageUrl, imageSize}){
   return (
-    <CircleDiv>
-      <UserImage src={imageUrl} alt='Imagem do usuário'/>
+    <CircleDiv imageSize={imageSize}>
+      <UserImage  src={imageUrl} alt='Imagem do usuário'/>
     </CircleDiv>
   );
 }
 
 const CircleDiv = styled.div`
-  width: 50px;
-  height: 50px;
+  width: ${({imageSize}) => imageSize ? imageSize : '50px' };
+  height: ${({imageSize}) => imageSize ? imageSize : '50px' };
   border-radius: 50%;
   overflow: hidden;
 `;
