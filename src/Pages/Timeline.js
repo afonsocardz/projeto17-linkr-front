@@ -13,6 +13,7 @@ import { getHashtags } from "../Services/api/hashtags";
 import { usePostsContext } from "../Contexts/PostsContext.js";
 import Loading from "../Components/Loading/Loading.js";
 import Loadingtext from "../Components/Loading/EndText.js";
+import LoadButton from "../Components/LoadButton/LoadButton.js";
 
 export default function Timeline() {
   const {posts, setPosts} =usePostsContext();
@@ -90,6 +91,7 @@ export default function Timeline() {
               <h1>Timeline</h1>
             </TimelineDiv>
             <PostCreate />
+            <LoadButton />
             <AllPosts />
           </InfiniteScroll>
         </FeedContainer>

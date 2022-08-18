@@ -30,7 +30,7 @@ export default function Trending() {
         }
       }
     } catch (err) {
-      alert(`${err.data}`);
+      alert("Error to load the hashtags");
     }
   }
 
