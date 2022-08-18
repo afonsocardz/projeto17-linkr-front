@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.1.2",
+    "@fortawesome/free-regular-svg-icons": "^6.1.2",
+    "@fortawesome/free-solid-svg-icons": "^6.1.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@mdnm/react-hashtag": "^3.0.2",
     "axios": "^0.27.2",
     "dotenv": "^16.0.1",
@@ -18,7 +22,8 @@
     "react-scripts": "^4.0.3",
     "react-tagify": "^0.1.4",
     "styled-components": "^5.3.5",
-    "url-metadata": "^2.5.0"
+    "url-metadata": "^2.5.0",
+    "use-interval": "^1.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
