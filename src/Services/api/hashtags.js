@@ -1,9 +1,9 @@
 import api from "./api";
 
-export function getHashtags() {
-  return api.get("/hashtag");
+export function getHashtags(token) {
+  return api.get("/hashtag", null,token);
 }
 
-export function getPostsByHashtag(searchHashtag, hashtag, token) {
+export function getPostsByHashtag(searchHashtag, token) {
   return api.get(`/hashtag/${searchHashtag}`, null, token);
 }

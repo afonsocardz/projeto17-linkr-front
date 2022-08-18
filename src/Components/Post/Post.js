@@ -144,3 +144,14 @@ const PictureContainer = styled.div`
   margin-right: 14px;
 `;
 
+const Icons = styled.div`
+    width: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+`

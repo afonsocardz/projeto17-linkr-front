@@ -4,26 +4,26 @@ import styled from "styled-components";
 import Header from "../Components/Header/Header.js";
 import Post from "../Components/Post/Post";
 import Trending from "../Components/Trending/Trending";
+import { useUpdateContext } from "../Contexts/UpdateContext.js";
 import { useUserContext } from "../Contexts/UserContext.js";
-import { getPostsByHashtag } from "../Services/api/hashtags";
+import { getPostsByHashtag } from "../Services/api/hashtags.js";
 
 export default function Hashtag() {
   const { hashtag } = useParams();
   const [posts, setPosts] = useState(false);
-  const { user, setUser } = useUserContext();
+  const { setUser } = useUserContext();
   const localStorageUser = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     specificHashtag();
-  }, []);
+  }, [hashtag]);
 
   async function specificHashtag() {
     try {
       if (localStorageUser) {
         setUser(localStorageUser);
-        setPosts(await getPostsByHashtag(hashtag, localStorageUser.token));
-      } else {
-        setPosts(await getPostsByHashtag(hashtag));
+        const response = await getPostsByHashtag(hashtag, localStorageUser.token);
+        setPosts(response);
       }
     } catch (err) {
       alert(
