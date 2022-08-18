@@ -12,13 +12,12 @@ import { getPostsByHashtag } from "../Services/api/hashtags.js";
 export default function Hashtag() {
   const { hashtag } = useParams();
   const [posts, setPosts] = useState(false);
-  const { user, setUser } = useUserContext();
-  const { updatee, setUpdatee } = useUpdateContext();
+  const { setUser } = useUserContext();
   const localStorageUser = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     specificHashtag();
-  }, [updatee]);
+  }, [hashtag]);
 
   async function specificHashtag() {
     try {
@@ -29,12 +28,6 @@ export default function Hashtag() {
         );
         setUser(localStorageUser);
         setPosts(response);
-
-        setUpdatee(!updatee);
-      } else {
-        setPosts(await getPostsByHashtag(hashtag));
-
-        setUpdatee(!updatee);
       }
     } catch (err) {
       alert(

@@ -83,7 +83,7 @@ export default function Post({ post }) {
           <Username>
             <Link to={`/user/${userId}`}> {username}</Link>
           </Username>
-          {user.id === post.userId && <div><FaPen onClick={() => toggleEditing()} /> <FaTrashAlt onClick={() => openModal()} /></div>}
+          {user.id === post.userId && <Icons><FaPen onClick={() => toggleEditing()} /> <FaTrashAlt onClick={() => openModal()} /></Icons>}
         </PostTopContainer>
         <EditableMessage message={message} hashtag={hashtag} isEditing={isEditing} id={id} toggleEditing={toggleEditing} />
 
@@ -134,3 +134,14 @@ const PictureContainer = styled.div`
   margin-right: 14px;
 `;
 
+const Icons = styled.div`
+    width: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+`
