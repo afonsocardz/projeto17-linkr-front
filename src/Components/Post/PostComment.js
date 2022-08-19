@@ -13,23 +13,29 @@ export default function PostComment({ commentIsOpen, post, comments }) {
 
   const myRef = useRef(null);
 
-  function focus(){
+  function focus() {
     myRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
   }
 
   async function submitHandler(e) {
     e.preventDefault();
-    const response = await create(commentMesage, post.id, user.token);
-    if (response) {
-      setUpdateComment(!updateComment);
+    try {
+      const response = await create(commentMesage, post.id, user.token);
+      if (response) {
+        setCommentMessage("");
+        setUpdateComment(!updateComment);
+      }
+    } catch (err) {
+      alert("Can't comment right now, try again later")
     }
+
   }
   return (
     <CommentModalContainer isOpen={commentIsOpen}>
       <CommentsContainer>
-        {comments && comments.map((comment, index) => <div ref={myRef} onLoad={()=> focus()}><Comment key={index} id={index} comment={comment}/></div> )}
+        {comments && comments.map((comment, index) => <div ref={myRef} onLoad={() => focus()}><Comment key={index} id={index} comment={comment} /></div>)}
       </CommentsContainer>
-      <CommentInput userPicture={post.userPicture} submitHandler={submitHandler} value={commentMesage} setValue={setCommentMessage} />
+      <CommentInput userPicture={user.userPicture} submitHandler={submitHandler} value={commentMesage} setValue={setCommentMessage} />
     </CommentModalContainer>
   );
 }

@@ -21,10 +21,10 @@ export default function Post({ post }) {
   const [isLoading, setIsLoading] = useState(false);
   const [commentIsOpen, setCommentIsOpen] = useState(false);
   const [comments, setComments] = useState(false);
-
   const { user } = useUserContext();
   const {updateComment, setUpdateComment} = useUpdateContext();
   const { message, userPicture, username, id, userId, hashtag } = post;
+  const [msg, setMsg] = useState(message);
 
   Modal.setAppElement(document.querySelector(".root"));
   function openModal() {
@@ -103,7 +103,7 @@ export default function Post({ post }) {
             </Username>
             {user.id === post.userId && <div><FaPen onClick={() => toggleEditing()} /> <FaTrashAlt onClick={() => openModal()} /></div>}
           </PostTopContainer>
-          <EditableMessage message={message} hashtag={hashtag} isEditing={isEditing} id={id} toggleEditing={toggleEditing} />
+          <EditableMessage msg={msg} setMsg={setMsg} hashtag={hashtag} isEditing={isEditing} id={id} toggleEditing={toggleEditing} />
           <PostMetadata post={post} />
         </ContentContainer>
       </PostContainer>

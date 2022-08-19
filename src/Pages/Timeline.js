@@ -57,7 +57,7 @@ export default function Timeline() {
       try {
         if(localStorageUser){
           setUser(localStorageUser)
-          const newPosts = await getPosts(1, localStorageUser.token);
+          const newPosts = await getPosts(1, localStorageUser.id);
           let count = 0;
   
           if (newPosts) {
