@@ -1,17 +1,27 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-export default function PostButton({ text, isLoading, createPost }) {
+export default function PostButton({
+  text,
+  isLoading,
+  createPost,
+  changeColor,
+}) {
   return (
     <div style={alignRight}>
-      <Button disabled={isLoading} onClick={() => createPost()}>{text}</Button>
+      <Button
+        changeColor={changeColor}
+        disabled={isLoading}
+        onClick={() => createPost()}
+      >
+        {text}
+      </Button>
     </div>
-
   );
 }
 
 const alignRight = {
-  display: 'flex',
-  justifyContent:'end',
+  display: "flex",
+  justifyContent: "end",
 };
 
 const Button = styled.button`
@@ -20,10 +30,11 @@ const Button = styled.button`
   align-items: center;
   width: 112px;
   height: 31px;
-  color: white;
-  background-color: #1877F2;
+  font-weight: 700;
+  color: ${(props) => (props.changeColor ? "#1877f2" : "white")};
+  background-color: ${(props) => (props.changeColor ? "white" : "#1877f2")};
   border-radius: 5px;
-  :disabled{
+  :disabled {
     opacity: 0.7;
   }
 `;
