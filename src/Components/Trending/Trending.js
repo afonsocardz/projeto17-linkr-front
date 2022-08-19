@@ -20,17 +20,19 @@ export default function Trending() {
 
   async function trendingHashtags() {
     try {
-      if (localStorageUser){
+      if (localStorageUser) {
         setUser(localStorageUser);
         const response = await getHashtags(localStorageUser.token);
-        
-        if (response){
+
+        if (response) {
           setHashtags(response);
           sethastagsUpdate(!hashtagsUpdate);
         }
       }
     } catch (err) {
-      alert(`${err.data}`);
+      if (err.data) {
+        alert(`${err.data}`);
+      }
     }
   }
 
