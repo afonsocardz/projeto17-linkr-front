@@ -91,9 +91,11 @@ export default function UserPosts() {
                 changeColor={isFollowed}
                 isLoading={disable}
                 text={isFollowed ? "Unfollow" : "Follow"}
-                createPost={() => {
-                  followUnfollow(user.id, id, user.token);
+                createPost={async () => {
+                  setDisable(true);
+                  await followUnfollow(user.id, id, user.token);
                   setIsFollowed(!isFollowed);
+                  setDisable(false);
                 }}
               />
             )}

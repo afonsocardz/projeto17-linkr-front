@@ -6,10 +6,10 @@ import { usePostsContext } from "../../Contexts/PostsContext";
 import { useUserContext } from "../../Contexts/UserContext";
 
 export default function LoadButton() {
-  const { newPostsUpdate, setNewPostsUpdate } = useUpdateContext();
   const { setUser } = useUserContext();
   const { setPosts } = usePostsContext();
   const { newPostsCount } = usePostsContext();
+  const { newPostsUpdate, setNewPostsUpdate } = useUpdateContext();
   const localStorageUser = JSON.parse(localStorage.getItem("user"));
 
   async function refreshPosts() {
@@ -17,7 +17,7 @@ export default function LoadButton() {
       setNewPostsUpdate(!newPostsUpdate);
       if (localStorageUser) {
         setUser(localStorageUser);
-        const refresh = await getPosts(1, localStorageUser.id);
+        const refresh = await getPosts(1, localStorageUser.token);
 
         if (refresh) {
           setNewPostsUpdate(!newPostsUpdate);

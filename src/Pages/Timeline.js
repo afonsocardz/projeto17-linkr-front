@@ -136,7 +136,6 @@ const MainContainer = styled.main`
   width: 100%;
   height: 100%;
   margin-top: 72px;
-  margin-bottom: 220px;
   display: flex;
   flex-direction: row;
   justify-content: center;
