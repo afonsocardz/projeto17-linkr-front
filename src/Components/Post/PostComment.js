@@ -1,4 +1,4 @@
-import { useState, useRef, createRef } from "react";
+import { useState, useRef } from "react";
 import styled, { css } from "styled-components";
 import { create } from "../../Services/api/comments";
 import Comment from "./Comment/Comment";
@@ -6,7 +6,7 @@ import CommentInput from "./Comment/CommentInput";
 import { useUserContext } from '../../Contexts/UserContext';
 import { useUpdateContext } from "../../Contexts/UpdateContext";
 
-export default function PostComment({ commentIsOpen, post, comments, lastComment }) {
+export default function PostComment({ commentIsOpen, post, comments }) {
   const { user } = useUserContext();
   const { updateComment, setUpdateComment } = useUpdateContext();
   const [commentMesage, setCommentMessage] = useState('');
@@ -27,16 +27,16 @@ export default function PostComment({ commentIsOpen, post, comments, lastComment
   return (
     <CommentModalContainer isOpen={commentIsOpen}>
       <CommentsContainer>
-        {comments && comments.map((comment, index) => <div ref={myRef} onLoad={()=> focus()}><Comment key={index} id={index} comment={comment}  focus={focus}/></div> )}
+        {comments && comments.map((comment, index) => <div ref={myRef} onLoad={()=> focus()}><Comment key={index} id={index} comment={comment}/></div> )}
       </CommentsContainer>
-      <CommentInput submitHandler={submitHandler} value={commentMesage} setValue={setCommentMessage} />
+      <CommentInput userPicture={post.userPicture} submitHandler={submitHandler} value={commentMesage} setValue={setCommentMessage} />
     </CommentModalContainer>
   );
 }
 
 const CommentsContainer = styled.div`
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: hidden;
   display: flex;
   height: 100%;
   flex-direction: column;

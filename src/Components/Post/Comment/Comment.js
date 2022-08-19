@@ -2,16 +2,16 @@ import styled from "styled-components";
 import UserPicture from "../../User/UserPicture";
 
 export default function Comment({ id, comment }) {
-  const { username, comment_message } = comment;
+  const { username, comment_message, status, userPicture } = comment;
 
   return (
     <>
       <CommentContainer  id={id}>
-        <UserPicture imageSize={'39px'} imageUrl={'https://observatoriodocinema.uol.com.br/wp-content/uploads/2016/03/the-100-lexa.jpg'} />
+        <UserPicture imageSize={'39px'} imageUrl={userPicture} />
         <TextContainer>
           <span style={{ display: 'flex', marginBottom: '5px' }}>
             <Username>{username}</Username>
-            {<UserInfo>Author</UserInfo>}
+            {status && <UserInfo>• {status}</UserInfo>}
           </span>
           <CommentMessage>{comment_message}</CommentMessage>
         </TextContainer>
@@ -27,7 +27,7 @@ const CommentMessage = styled.p`
 
 const UserInfo = styled.span`
   color: #565656;
-  
+  margin-left: 4px;
 `;
 
 const Username = styled.h4`

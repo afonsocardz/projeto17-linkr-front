@@ -2,10 +2,10 @@ import styled from "styled-components";
 import { FaRegPaperPlane } from "react-icons/fa";
 import UserPicture from "../../User/UserPicture";
 
-export default function CommentInput({ submitHandler, setValue, value }) {
+export default function CommentInput({ submitHandler, setValue, value, userPicture }) {
   return (
     <InputContainer>
-      <UserPicture imageSize={'39px'} imageUrl={'https://observatoriodocinema.uol.com.br/wp-content/uploads/2016/03/the-100-lexa.jpg'} />
+      <UserPicture imageSize={'39px'} imageUrl={userPicture} />
       <InputBackground>
         <InputWrapper onSubmit={(e) => submitHandler(e)}>
           <Input value={value} onChange={(e) => setValue(e.target.value)} />
