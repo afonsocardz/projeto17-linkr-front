@@ -6,10 +6,10 @@ import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../../Contexts/UserContext";
 import { editPost } from "../../../Services/api/posts";
 
-export default function EditableMessage({ message, id, isEditing, toggleEditing }) {
+export default function EditableMessage({ msg, setMsg, id, isEditing, toggleEditing }) {
   const { user } = useUserContext();
   const [isLoading, setIsLoading] = useState(false);
-  const [msg, setMsg] = useState(message);
+  
   const inputRef = useRef(null);
   const navigate = useNavigate();
 
@@ -54,7 +54,7 @@ export default function EditableMessage({ message, id, isEditing, toggleEditing 
           tagStyle={tagStyle}
           tagClicked={(click) => goToHashtagPage(click)}
         >
-          <Message>{message}</Message>
+          <Message>{msg}</Message>
         </ReactTagify>
       }
     </>

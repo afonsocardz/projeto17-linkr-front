@@ -1,10 +1,13 @@
 import styled from "styled-components";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
+import { useUserContext } from "../../../Contexts/UserContext";
 
 export default function LikeButton({ like, likeHandler, likeQty, whoLiked }) {
-  const pessoas = [];
-  for (let x = 0; x < whoLiked?.length; x++) {
-    pessoas.push(whoLiked[x].username);
+  const {user} = useUserContext();
+  
+  if(whoLiked.includes(user.username)){
+    const index = whoLiked.indexOf(user.username);
+    whoLiked.splice(index,1,'Você');
   }
   const whoLeft = likeQty - whoLiked?.length;
   function statusHandler() {
@@ -18,11 +21,7 @@ export default function LikeButton({ like, likeHandler, likeQty, whoLiked }) {
       {statusHandler()}
       <Triangle></Triangle>
       <Poppin>
-        {like
-          ? `Você, ${pessoas.join(", ")} ${
-              whoLeft - 1 > 0 ? "e outras " + whoLeft + "pessoas" : ""
-            }`
-          : `${likeQty} pessoas`}
+        {whoLeft - 1 > 0 ? `${whoLiked?.join(", ")} e ${whoLeft} pessoas`: `${whoLiked?.join(", ")}`}
       </Poppin>
     </ButtonContainer>
   );
