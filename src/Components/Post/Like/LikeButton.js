@@ -5,7 +5,7 @@ import { useUserContext } from "../../../Contexts/UserContext";
 export default function LikeButton({ like, likeHandler, likeQty, whoLiked }) {
   const {user} = useUserContext();
   
-  if(whoLiked.includes(user.username)){
+  if(whoLiked?.includes(user.username)){
     const index = whoLiked.indexOf(user.username);
     whoLiked.splice(index,1,'Você');
   }
@@ -21,7 +21,7 @@ export default function LikeButton({ like, likeHandler, likeQty, whoLiked }) {
       {statusHandler()}
       <Triangle></Triangle>
       <Poppin>
-        {whoLeft - 1 > 0 ? `${whoLiked?.join(", ")} e ${whoLeft} pessoas`: `${whoLiked?.join(", ")}`}
+        {whoLiked?.length > 0 ? whoLeft - 1 > 0 ? `${whoLiked?.join(", ")} e ${whoLeft} pessoas`: `${whoLiked?.join(", ")}`: 'no likes' }
       </Poppin>
     </ButtonContainer>
   );
