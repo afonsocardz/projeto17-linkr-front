@@ -26,11 +26,15 @@ export function editPost(id, message, token) {
 }
 
 export function getPosts(numberPage, id) {
-  return api.get(`/posts`, null, null, { page: numberPage, limit: 10, id});
+  return api.get(`/posts`, null, null, { page: numberPage, limit: 10, id });
 }
 
-export function getPostsByUserId(id, searchedUserId, token) {
-  return api.get(`/posts/${searchedUserId}`, null, token, { id });
+export function getPostsByUserId(id, searchedUserId, numberPage,token) {
+  return api.get(`/posts/${searchedUserId}`, null, token, {
+    id, 
+    page: numberPage,
+    limit: 10,
+  });
 }
 
 export function likePost(postId, token) {

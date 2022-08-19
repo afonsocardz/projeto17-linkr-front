@@ -1,17 +1,22 @@
 import { useEffect, useState } from "react";
-import styled from "styled-components";
-import { useUserContext } from "../Contexts/UserContext";
-import Trending from "../Components/Trending/Trending";
-import Post from "../Components/Post/Post";
-import { getPostsByUserId } from "../Services/api/posts";
-import Header from "../Components/Header/Header.js";
 import { useParams } from "react-router-dom";
-import { searchUserById } from "../Services/api/search";
+import styled from "styled-components";
+import InfiniteScroll from "react-infinite-scroll-component";
+import Header from "../Components/Header/Header.js";
+import Trending from "../Components/Trending/Trending";
+import Loading from "../Components/Loading/Loading";
+import Loadingtext from "../Components/Loading/EndText";
 import PostButton from "../Components/Post/PostButton";
+import { useUserContext } from "../Contexts/UserContext";
+import { usePostsContext } from "../Contexts/PostsContext.js";
+import { getPostsByUserId } from "../Services/api/posts";
+import { searchUserById } from "../Services/api/search";
 import { followUnfollow, getFollowedUsers } from "../Services/api/followeds";
 
 export default function UserPosts() {
-  const [posts, setPosts] = useState(false);
+  const { posts, setPosts } = usePostsContext();
+  const [hasMore, setHasMore] = useState(true);
+  const [page, setPage] = useState(2);
   const [username, setUsername] = useState(null);
   const { user, setUser } = useUserContext();
   const { id } = useParams();
@@ -42,15 +47,15 @@ export default function UserPosts() {
             await getPostsByUserId(
               localStorageUser.id,
               id,
+              1,
               localStorageUser.token
             )
           );
         } else {
-          setPosts(await getPostsByUserId(user.id, id, user.token));
+          setPosts(await getPostsByUserId(user.id, id, 1, user.token));
         }
         if (user.id) {
           const followedUsers = await getFollowedUsers(user.id, user.token);
-          console.log(followedUsers);
           setUser({ ...user, followedUsers });
           if (
             followedUsers
@@ -69,15 +74,41 @@ export default function UserPosts() {
     fetchData();
   }, [username]);
 
-  function listPosts() {
-    if (!posts) {
-      return <span style={{ color: "white" }}>Loading...</span>;
+  const fetchMorePosts = async () => {
+    try {
+      if (localStorageUser) {
+        setUser(localStorageUser);
+        const brandNewPosts = await getPostsByUserId(
+          localStorageUser.id,
+          id,
+          page,
+          localStorageUser.token
+        );
+
+        if (brandNewPosts) {
+          return brandNewPosts;
+        }
+      }
+    } catch (err) {
+      alert("An error occured while trying to fetch the more posts");
     }
-    if (posts?.length === 0) {
-      return <span style={{ color: "white" }}>There is no post yet.</span>;
+  };
+
+  const fetchPage = async () => {
+    try {
+      const loadPosts = await fetchMorePosts();
+
+      setPosts([...posts, ...loadPosts]);
+
+      if (loadPosts.length === 0 || loadPosts.length < 10) {
+        setHasMore(false);
+      }
+
+      setPage(page + 1);
+    } catch (err) {
+      alert("An error occured while trying to fetch the more posts");
     }
-    return posts.map((post, index) => <Post key={index} post={post} />);
-  }
+  };
 
   return (
     <>
@@ -100,7 +131,15 @@ export default function UserPosts() {
               />
             )}
           </UsernameDiv>
-          <FeedContainer>{listPosts()}</FeedContainer>
+          <FeedContainer>
+            <InfiniteScroll
+              dataLength={posts.length}
+              next={fetchPage}
+              hasMore={hasMore}
+              loader={<Loading/> }
+              endMessage={<Loadingtext />}
+            ></InfiniteScroll>
+          </FeedContainer>
         </Container>
         <Trending />
       </MainContainer>
