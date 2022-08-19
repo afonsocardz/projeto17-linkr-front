@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
+import { VscCircleFilled } from "react-icons/vsc";
 import { DebounceInput } from "react-debounce-input";
 import styled from "styled-components";
 import { useUserContext } from "../../Contexts/UserContext";
@@ -9,11 +10,10 @@ import { Link } from "react-router-dom";
 export default function SearchInput() {
   const [usersArray, setUsersArray] = useState([]);
   const [username, setUsername] = useState("");
-  const { user } = useUserContext();
+  const { user: contextUser } = useUserContext();
   const [isSearching, setIsSearching] = useState(false);
 
   useEffect(() => {
-    console.log(user.token);
     async function fetchData(username, token) {
       try {
         const response = await searchUser(username, token);
@@ -26,7 +26,8 @@ export default function SearchInput() {
         setIsSearching(false);
       }
     }
-    fetchData(username, user.token);
+    fetchData(username, contextUser.token);
+    console.log(contextUser?.followedUsers);
   }, [username]);
 
   function renderUsers() {
@@ -38,6 +39,13 @@ export default function SearchInput() {
             <Link to={`/user/${user.id}`}>
               <h3>{user.username}</h3>
             </Link>
+            {contextUser?.followedUsers
+              ?.map((followed) => followed.followedUserId)
+              ?.includes(user.id) ? (
+              <h4>
+                <VscCircleFilled /> Following
+              </h4>
+            ) : null}
           </UserDiv>
         );
       });
@@ -115,6 +123,13 @@ const UserDiv = styled.div`
   font-family: "Lato", sans-serif;
   font-weight: 400;
   font-size: 19px;
+  gap: 5px;
+  svg {
+    font-size: 13px;
+  }
+  h4 {
+    color: #c5c5c5;
+  }
   img {
     height: 40px;
     width: 40px;
