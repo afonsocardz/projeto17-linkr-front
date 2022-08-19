@@ -17,7 +17,7 @@ export default function LoadButton() {
       setNewPostsUpdate(!newPostsUpdate);
       if (localStorageUser) {
         setUser(localStorageUser);
-        const refresh = await getPosts(1, localStorageUser.token);
+        const refresh = await getPosts(1, localStorageUser.id);
 
         if (refresh) {
           setNewPostsUpdate(!newPostsUpdate);

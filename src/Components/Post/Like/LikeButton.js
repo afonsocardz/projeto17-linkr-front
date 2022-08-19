@@ -4,7 +4,7 @@ import { FaRegHeart, FaHeart } from "react-icons/fa";
 export default function LikeButton({ like, likeHandler, likeQty, whoLiked }) {
   const pessoas = [];
   for (let x = 0; x < whoLiked?.length; x++) {
-    pessoas.push(whoLiked[x].username);
+    pessoas.push(whoLiked[x]?.username);
   }
   const whoLeft = likeQty - whoLiked?.length;
   function statusHandler() {

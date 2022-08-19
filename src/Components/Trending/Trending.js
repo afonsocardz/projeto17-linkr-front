@@ -31,7 +31,7 @@ export default function Trending() {
       }
     } catch (err) {
       if (err.data) {
-        alert(`${err.data}`);
+        alert(`Error ${err?.data} to load the hashtags`);
       }
     }
   }

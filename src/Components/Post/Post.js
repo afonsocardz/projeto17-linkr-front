@@ -138,6 +138,7 @@ const PostContainer = styled.div`
   width: 100%;
   display: flex;
   padding: 13px 18px;
+  margin-bottom: 16px;
   border-radius: 16px;
   background-color: #171717;
   z-index: 1;

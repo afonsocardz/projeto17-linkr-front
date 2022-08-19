@@ -57,7 +57,7 @@ export default function Timeline() {
       try {
         if(localStorageUser){
           setUser(localStorageUser)
-          const newPosts = await getPosts(1, localStorageUser.token);
+          const newPosts = await getPosts(1, localStorageUser.id);
           let count = 0;
   
           if (newPosts) {
@@ -125,7 +125,7 @@ export default function Timeline() {
               <h1>Timeline</h1>
             </TimelineDiv>
             <PostCreate />
-            {newPostsCount === 0 ? <></> : <LoadButton />}
+            {newPostsCount > 0 ? <LoadButton /> : <></>}
             <AllPosts />
           </InfiniteScroll>
         </FeedContainer>
