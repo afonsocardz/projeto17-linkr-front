@@ -83,7 +83,10 @@ export default function Timeline() {
       if (localStorageUser) {
         setUser(localStorageUser);
         const brandNewPosts = await getPosts(page, localStorageUser.id);
-        return brandNewPosts;
+
+        if(brandNewPosts){
+          return brandNewPosts;
+        }
       }
     } catch (err) {
       alert("An error occured while trying to fetch the more posts");
