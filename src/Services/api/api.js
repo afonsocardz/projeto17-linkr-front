@@ -13,7 +13,7 @@ const queryStringBuilder = (query) =>
     : "";
 
 const instance = axios.create({
-  baseURL: "http://localhost:4000",
+  baseURL: process.env.REACT_APP_HTTP_REQUEST_BASE_URL,
 });
 
 for (const method of methods) {

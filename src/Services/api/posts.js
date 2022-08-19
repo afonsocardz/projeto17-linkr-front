@@ -11,14 +11,18 @@ export function create(url, message, token) {
   );
 }
 
-export function delPost (id, token){
+export function delPost(id, token) {
   return api.delete(`/posts/${id}`, null, token);
 }
 
-export function editPost(id, message, token){
-  return api.put(`/posts/${id}`, {
-    message,
-  }, token);
+export function editPost(id, message, token) {
+  return api.put(
+    `/posts/${id}`,
+    {
+      message,
+    },
+    token
+  );
 }
 
 export function getPosts(numberPage, id) {
